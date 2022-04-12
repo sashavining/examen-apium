@@ -1,0 +1,85 @@
+.hexagon-container {
+    position:absolute;
+    top: 20vh;
+    left: 45vw;
+    transition: all 1s;
+}
+
+.hexagon {
+    position: relative;
+    margin: 0 auto;
+    background-color: dodgerblue;
+    border-radius: 10px;
+    width: 100px; 
+    height: 63px;
+    box-sizing: border-box;
+    border: 0.4vh solid transparent;
+
+}
+
+.one {
+    background-color:#f0c800;
+    top:150px;   
+}
+
+.two {
+    background-color:#e0e0e0;
+    top:-5px;
+    left: 55px;
+}
+
+.three {
+    background-color:#e0e0e0;
+    top:25px;
+    left: 108px;
+}
+
+.four {    
+    background-color:#e0e0e0;
+    top:55px;
+    left: 54px;
+}
+.five {
+    background-color:#e0e0e0;
+    top:-8px;
+    left: -55px;
+}
+
+.six {
+    background-color:#e0e0e0;
+    top:-165px;
+    left: -107px;
+}
+
+.seven {
+    background-color:#e0e0e0;
+    top:-322px;
+    left: -52px;
+}
+  
+  
+/* Creating pseudo-class */
+.hexagon:before, .hexagon:after {
+    content: "";
+    border: inherit;
+    background-color: #e0e0e0;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+}
+  
+/* Align them in such a way
+that they form a hexagon */
+.hexagon:before {
+    transform: rotate(60deg);
+}
+.hexagon:after {
+    transform: rotate(-60deg);
+}
+
+.one:before, .one:after {
+    background-color:#f0c800;
+}
