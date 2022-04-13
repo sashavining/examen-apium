@@ -31,48 +31,86 @@ const playerScoreCard = {
 }
 
 const gameDisplay = {
+    hexagonDivNumber: ["one", "two", "three", "four", "five", "six", "seven"],
+    populateDisplay () {
+        for (i = 0; i < 7; i ++) {
+            const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
+            container.textContent = gameBoard.board[i]
+        }
+    },
+    clearDisplay () {
+        for (i = 0; i < 7; i ++) {
+            const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
+            container.innerText = "";
+        }
+    },
+    shuffleDisplay () {
+        this.clearDisplay();
+        const container = document.querySelector(`.${this.hexagonDivNumber[0]}`).firstChild
+        container.textContent = gameBoard.board[0]
+        for (i = 1; i < 7; i++) {
+            let randomNum = Math.ceil(Math.random() * 6);
+            while (document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild.innerText !== "") {
+                randomNum = Math.ceil(Math.random()* 6);
+            }
+            console.log(randomNum);
+            const container = document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild
+            console.log(container);
+            container.innerText = gameBoard.board[i]
+        }
+    }
+
     // add DOM elements
+    // including a spot for the player score and guessed words
 }
 
+gameDisplay.populateDisplay();
+let isCurrentPlayValid;
+
 function playWord () {
-    const inputtedWord = document.querySelector('input').value;
+    const inputtedWord = document.querySelector('input').value.toLowerCase();
+    clearGuess();
     if (!checkIfWordLongEnough(inputtedWord)) {
         alert ("Word too short! Try again!")
-        clearGuess();
         return;
     } else if (!checkIfUsesOneRequiredLetter(inputtedWord)) {
         alert("Oops! Your word does not use the required center letter. Try again.");
-        clearGuess();
         return;
     } else if (!checkIfAllLettersAllowed(inputtedWord)) {
         alert("Oops! One or more of your letters aren't on the board. Try again.");
-        clearGuess();
         return;
     } else if (checkIfWordAleadyPlayed(inputtedWord)) {
         alert ("You already played that word! Try again.");
-        clearGuess();
         return;
-    } else if (!checkIfLatinWord(inputtedWord)) {
-        alert ("Not a Latin word! Try again!");
-        clearGuess();
-        return;
-    } 
-    playerScoreCard.words.push(inputtedWord);
-    playerScoreCard.score += scoreWord(inputtedWord);
+    } else {
+        checkIfLatinWord(inputtedWord).then(() => {
+            console.log(isCurrentPlayValid);
+            if (!isCurrentPlayValid) {
+                alert ("This is not a Latin word! Try again.");
+                return;
+            } else {
+                playerScoreCard.words.push(inputtedWord);
+                playerScoreCard.score += scoreWord(inputtedWord);            
+            }
+        })
+    }  
     // update score on DOM
-    // update word on DOM
+    // successful guesses on DOM
+    // point count on DOM
+    // button to click to bring up rules
 }
 
 async function checkIfLatinWord (str) {
     try {
         const response = await fetch(`https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://latinwordnet.exeter.ac.uk/lemmatize/${str}`)
         const word = await response.json();
-        return Boolean (word.length);
+        isCurrentPlayValid = Boolean (word.length);
     }
     catch (err) {
         console.log(`error ${err}`);
     } 
 };
+
 function checkIfWordAleadyPlayed (word) {
     return playerScoreCard.words.includes(word)
 }
@@ -116,11 +154,10 @@ function scoreWord (word) {
 }
 
 function clearGuess () {
-    document.querySelector('input').innerText = ""; // doesn't work
+    document.querySelector('input').value = ""; 
 }
 
 // function displayWord () { }
 
 // function displayScore () { }
 
-// need to clear input once player has guessed

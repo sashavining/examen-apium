@@ -1,7 +1,28 @@
+* {
+    font-family: 'Arima Madurai', sans-serif;
+}
+
+h1{
+    color: #f0c800;
+    font-size: 3rem;
+    position: absolute;
+    left: 36vw;
+    transition: all 1s;
+
+}
+
+.logo-one{
+    transform: rotate(60deg);
+    position:absolute;
+    left:-30px;
+    top: -5px;
+}
+
+
 .hexagon-container {
     position:absolute;
     top: 20vh;
-    left: 45vw;
+    left: 47vw;
     transition: all 1s;
 }
 
@@ -14,12 +35,20 @@
     height: 63px;
     box-sizing: border-box;
     border: 0.4vh solid transparent;
+    padding-top: 5px;
+    padding-right:20px;
+}
 
+.hexagon div {
+    font-size: 1.8rem;
+    width:1px;
+    margin: 0 auto;
 }
 
 .one {
     background-color:#f0c800;
     top:150px;   
+    padding-left:15px;
 }
 
 .two {
@@ -69,6 +98,7 @@
     border-radius: inherit;
     height: 100%;
     width: 100%;
+    z-index: -1;
 }
   
 /* Align them in such a way
@@ -82,4 +112,46 @@ that they form a hexagon */
 
 .one:before, .one:after {
     background-color:#f0c800;
+}
+
+.input-container{
+    position: absolute;
+    width: 800px;
+    top: 80vh;
+    left: 30%;
+}
+
+input{ 
+    height: 30px;
+    width: 340px;
+    border: 0px solid;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+input:focus{
+    outline: none !important;
+    border: #f0c800 solid 2px;
+    border-radius: 3px;
+}
+
+input:hover {
+    background-color: #ffef9f;
+    border-radius: 3px;
+}
+
+button {
+    padding: 2px 12px;
+    background-color: #ffef9f;
+    border: 2px solid #f0c800;
+    border-radius: 3px;
+}
+
+button:hover{
+    background-color: #fce46d;
+    border: 2px solid #dcb701;
+}
+
+button, input{
+    font-size:1.1rem;
+    text-align: center;
 }
