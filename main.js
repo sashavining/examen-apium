@@ -5,7 +5,7 @@ function Board () {
         board: [],
         generateBoard () {
             this.resetBoard();
-            const letters = "abcdefghilmnopqrstuvyz"
+            const letters = "aaabcdeeeefghiiilmnoopqrstuuuv"
             for (i = 0; i < 7; i++) {
                 let generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 while (this.board.includes(generatedLetter)) {
@@ -58,39 +58,49 @@ const gameDisplay = {
             console.log(container);
             container.innerText = gameBoard.board[i]
         }
+    },
+    updateScore () {
+        const successfulGuesses = document.querySelector('.successful-guess-container');
+        const playerScore = document.querySelector('.score-number');
+        successfulGuesses.innerText = playerScoreCard.words.join(", ");
+        playerScore.innerText = playerScoreCard.score;
     }
-
     // add DOM elements
     // including a spot for the player score and guessed words
 }
 
 gameDisplay.populateDisplay();
+const refreshButton = document.querySelector("#refresh-button");
+refreshButton.addEventListener("click", gameDisplay.shuffleDisplay.bind(gameDisplay));
 let isCurrentPlayValid;
 
 function playWord () {
     const inputtedWord = document.querySelector('input').value.toLowerCase();
+    let errorTextContainer = document.querySelector('.error-text')
     clearGuess();
     if (!checkIfWordLongEnough(inputtedWord)) {
-        alert ("Word too short! Try again!")
+        errorTextContainer.innerText = "Word too short!";
         return;
     } else if (!checkIfUsesOneRequiredLetter(inputtedWord)) {
-        alert("Oops! Your word does not use the required center letter. Try again.");
+        errorTextContainer.innerText = "Oops! Your word does not use the required center letter.";
         return;
     } else if (!checkIfAllLettersAllowed(inputtedWord)) {
-        alert("Oops! One or more of your letters aren't on the board. Try again.");
+        errorTextContainer.innerText = "Oops! One or more of your letters aren't on the board.";
         return;
     } else if (checkIfWordAleadyPlayed(inputtedWord)) {
-        alert ("You already played that word! Try again.");
+        errorTextContainer.innerText = "You already played that word!";
         return;
     } else {
         checkIfLatinWord(inputtedWord).then(() => {
             console.log(isCurrentPlayValid);
             if (!isCurrentPlayValid) {
-                alert ("This is not a Latin word! Try again.");
+                errorTextContainer.innerText = "This is not a Latin word!";
                 return;
             } else {
+                errorTextContainer.innerText = "";
                 playerScoreCard.words.push(inputtedWord);
-                playerScoreCard.score += scoreWord(inputtedWord);            
+                playerScoreCard.score += scoreWord(inputtedWord);    
+                gameDisplay.updateScore();        
             }
         })
     }  
@@ -116,7 +126,7 @@ function checkIfWordAleadyPlayed (word) {
 }
 
 function checkIfWordLongEnough (word) {
-    return word.length > 4
+    return word.length >= 4
 };
 
 function checkIfUsesOneRequiredLetter (word) {

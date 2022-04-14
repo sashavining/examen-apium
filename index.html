@@ -13,7 +13,7 @@
 </head>
 <body>
     <main>
-        <h1>Certamen Apium<img src="beeicon.png" alt="bee icon" class="logo-one"></h1>
+        <h1>Examen Apium<img src="beeicon.png" alt="bee icon" class="logo-one"></h1>
         <div class="hexagon-container">
             <div class="hexagon one"><div></div></div>
             <div class="hexagon two"><div></div></div>
@@ -24,8 +24,18 @@
             <div class="hexagon seven"><div></div></div>
         </div>
         <div class="input-container">
+            <p class="error-text"></p>
             <input type="text" label="input guess" placeholder="Type your guess here">
-            <button type="submit" name="submit guess" maxlength="20">Submit Guess</button>    
+            <button type="submit" name="submit guess" maxlength="20">Submit Guess</button> 
+            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button"></i><i class="fa-solid fa-trophy"></i><i class="fa-solid fa-circle-info"></i></div>
+           
+        </div>
+        <div class="words-container">
+            <h2>Successful Guesses:</h2>
+            <div class="successful-guess-container"></div>
+        </div>
+        <div class="score-container">
+            <h2>Score:</h2><span class="score-number">0</span>
         </div>
 
     </main>

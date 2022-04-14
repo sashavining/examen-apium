@@ -3,26 +3,37 @@
 }
 
 h1{
-    color: #f0c800;
     font-size: 3rem;
     position: absolute;
-    left: 36vw;
+    left: 26vw;
     transition: all 1s;
+}
 
+h2{
+    text-align: center;
+}
+
+.error-text, h1, h2{
+    color: #f0c800;
+}
+
+.error-text {
+    font-size: 1rem;
+    padding-left: 0rem;
+    font-weight: bold;
 }
 
 .logo-one{
     transform: rotate(60deg);
     position:absolute;
-    left:-30px;
+    left:-40px;
     top: -5px;
 }
-
 
 .hexagon-container {
     position:absolute;
     top: 20vh;
-    left: 47vw;
+    left: 34vw;
     transition: all 1s;
 }
 
@@ -48,42 +59,54 @@ h1{
 .one {
     background-color:#f0c800;
     top:150px;   
-    padding-left:15px;
+    left: -10px;
+    padding-left:10px;
 }
 
 .two {
     background-color:#e0e0e0;
     top:-5px;
-    left: 55px;
+    left: 45px;
 }
 
 .three {
     background-color:#e0e0e0;
     top:25px;
-    left: 108px;
+    left: 98px;
 }
 
 .four {    
     background-color:#e0e0e0;
     top:55px;
-    left: 54px;
+    left: 44px;
 }
 .five {
     background-color:#e0e0e0;
     top:-8px;
-    left: -55px;
+    left: -65px;
 }
 
 .six {
     background-color:#e0e0e0;
     top:-165px;
-    left: -107px;
+    left: -117px;
 }
 
 .seven {
     background-color:#e0e0e0;
     top:-322px;
-    left: -52px;
+    left: -62px;
+}
+
+i{
+    font-size: 2.5rem;
+    color: #939393;
+    margin-right: 3vw;
+}
+
+.icons{
+    margin-top: 5vh;
+    margin-left: 9vw;
 }
   
   
@@ -117,8 +140,36 @@ that they form a hexagon */
 .input-container{
     position: absolute;
     width: 800px;
-    top: 80vh;
-    left: 30%;
+    top: 70vh;
+    left: 20%;
+}
+.words-container{
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+.score-container, .words-container{
+    width: 25vw;
+    position: absolute;
+    left: 68vw;
+}
+
+.words-container {
+    border: 2px solid #e0e0e0 ;
+    border-radius: 5px;
+    height: 70vh;
+}
+
+.score-container{
+    top: 70vh;
+}
+
+.score-container h2{
+    display:inline-block;
+    margin-right: 1vw;
+}
+
+.score-container span{
+    font-size: 1.5em;
 }
 
 input{ 
