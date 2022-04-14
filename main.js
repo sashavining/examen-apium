@@ -79,22 +79,22 @@ function playWord () {
     let errorTextContainer = document.querySelector('.error-text')
     clearGuess();
     if (!checkIfWordLongEnough(inputtedWord)) {
-        errorTextContainer.innerText = "Word too short!";
+        errorTextContainer.innerText = "Word too short! Your word should be 4 or more letters long. Try again.";
         return;
     } else if (!checkIfUsesOneRequiredLetter(inputtedWord)) {
-        errorTextContainer.innerText = "Oops! Your word does not use the required center letter.";
+        errorTextContainer.innerText = "Your word does not use the yellow center letter. Try again";
         return;
     } else if (!checkIfAllLettersAllowed(inputtedWord)) {
-        errorTextContainer.innerText = "Oops! One or more of your letters aren't on the board.";
+        errorTextContainer.innerText = "One or more of your letters aren't on the gameboard. Check the board and try again.";
         return;
     } else if (checkIfWordAleadyPlayed(inputtedWord)) {
-        errorTextContainer.innerText = "You already played that word!";
+        errorTextContainer.innerText = "You already played that word! Try again.";
         return;
     } else {
         checkIfLatinWord(inputtedWord).then(() => {
             console.log(isCurrentPlayValid);
             if (!isCurrentPlayValid) {
-                errorTextContainer.innerText = "This is not a Latin word!";
+                errorTextContainer.innerText = "That is not a valid Latin word! Try again.";
                 return;
             } else {
                 errorTextContainer.innerText = "";
