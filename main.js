@@ -1,5 +1,54 @@
 document.querySelector('button').addEventListener('click', playWord);
+/* 
+localStorage
 
+date: [date last visited]
+puzzle: [puzzle array]
+points: [points array]
+high score: [high score]
+longest word: [word, word length]
+days played: [days played]
+
+*/
+const gameBoard = new Board;
+
+const playerScoreCard = {
+    words: [],
+    score: 0,
+}
+
+function populateLocalStorageOnPageLoad () {
+    const date = new Date(Date.now()).toLocaleString().split(',')[0]
+    if(localStorage.getItem("examenApisLastPlayed") === null) {
+        gameBoard.generateBoard();
+        localStorage.setItem('examenApisLastPlayed', date);
+        localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
+        localStorage.setItem('examenApisPoints', '0');
+        localStorage.setItem('examenApisCurrentWords', '[]');
+        localStorage.setItem('examenApisHighScore', '0');
+        localStorage.setItem('examenApisLongestWord', ' ');
+        localStorage.setItem('examenApisDaysPlayed', '0');
+    } else if (localStorage.getItem("examenApisLastPlayed") !== date) {
+        localStorage.setItem('examenApisLastPlayed', date);
+        localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
+        localStorage.setItem('examenApisPoints', '0');
+        localStorage.setItem('examenApisCurrentWords', '[]');
+        // populate the DOM with the high score, longest word, etc.
+    } else {
+        gameBoard.board = localStorage.getItem('examenApisPuzzleBoard').split(",");
+        playerScoreCard.score = Number(localStorage.getItem('examenApisPoints'));
+        playerScoreCard.words = JSON.parse(localStorage.getItem('examenApisCurrentWords'));
+        // you also need to populate the high scores pop-up with everything else
+    }
+}
+
+
+
+populateLocalStorageOnPageLoad();
+
+function updateLocalStorage () {
+    // if something has changed, then update the local storage. run this every so often to keep it up to date.
+}
 function Board () {
     return {
         board: [],
@@ -22,13 +71,6 @@ function Board () {
     }
 }
 
-let gameBoard = new Board;
-gameBoard.generateBoard();
-
-const playerScoreCard = {
-    words: [],
-    score: 0,
-}
 
 
 
@@ -75,10 +117,17 @@ const gameDisplay = {
     hideRules () {
         const rulesContainer = document.querySelector(".rules");
         rulesContainer.setAttribute('style', 'display:none')
+    },
+    inputLetterFromButton (e) {
+        const wordInput = document.querySelector('input');
+        console.log(wordInput);
+        console.log(`adding letter ${e.target.textContent} to ${wordInput.textContent}`)
+        wordInput.value += e.target.textContent;
     }
-    // add DOM elements
-    // including a spot for the player score and guessed words
 }
+
+const keys = document.querySelectorAll('.hexagon');
+keys.forEach(key => key.addEventListener('click', gameDisplay.inputLetterFromButton));
 
 gameDisplay.populateDisplay();
 const refreshButton = document.querySelector("#refresh-button");
@@ -119,7 +168,6 @@ function playWord () {
             }
         })
     }  
-    // button to click to bring up rules
     // keyboard support
     // high score and only one puzzle a day via localStorage
 }
@@ -180,8 +228,4 @@ function scoreWord (word) {
 function clearGuess () {
     document.querySelector('input').value = ""; 
 }
-
-// function displayWord () { }
-
-// function displayScore () { }
 
