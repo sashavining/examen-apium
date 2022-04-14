@@ -30,8 +30,11 @@ const playerScoreCard = {
     score: 0,
 }
 
+
+
 const gameDisplay = {
     hexagonDivNumber: ["one", "two", "three", "four", "five", "six", "seven"],
+
     populateDisplay () {
         for (i = 0; i < 7; i ++) {
             const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
@@ -64,6 +67,14 @@ const gameDisplay = {
         const playerScore = document.querySelector('.score-number');
         successfulGuesses.innerText = playerScoreCard.words.join(", ");
         playerScore.innerText = playerScoreCard.score;
+    },
+    showRules () {
+        const rulesContainer = document.querySelector(".rules");
+        rulesContainer.removeAttribute('style', 'display:block;')
+    },   
+    hideRules () {
+        const rulesContainer = document.querySelector(".rules");
+        rulesContainer.setAttribute('style', 'display:none')
     }
     // add DOM elements
     // including a spot for the player score and guessed words
@@ -72,6 +83,10 @@ const gameDisplay = {
 gameDisplay.populateDisplay();
 const refreshButton = document.querySelector("#refresh-button");
 refreshButton.addEventListener("click", gameDisplay.shuffleDisplay.bind(gameDisplay));
+const rulesOpenButton = document.querySelector(".fa-circle-info");
+rulesOpenButton.addEventListener('click', gameDisplay.showRules);
+const rulesCloseButton = document.querySelector(".rules-button");
+rulesCloseButton.addEventListener('click', gameDisplay.hideRules);
 let isCurrentPlayValid;
 
 function playWord () {
@@ -104,10 +119,9 @@ function playWord () {
             }
         })
     }  
-    // update score on DOM
-    // successful guesses on DOM
-    // point count on DOM
     // button to click to bring up rules
+    // keyboard support
+    // high score and only one puzzle a day via localStorage
 }
 
 async function checkIfLatinWord (str) {
