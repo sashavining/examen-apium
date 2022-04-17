@@ -60,7 +60,7 @@ h2{
     background-color:#f0c800;
     top:150px;   
     left: -10px;
-    padding-left:10px;
+    padding-left:0px;
 }
 
 .two {
@@ -155,6 +155,25 @@ that they form a hexagon */
     position: absolute;
     left: 68vw;
 }
+.high-scores{
+    padding-left: 3vw;
+}
+
+.score-row{
+    display:block;
+    width:100%;
+}
+
+.high-score-label{
+    display:inline-block;
+    font-size: 1rem;
+    margin-bottom: 2vh;
+}
+
+.high-score-value{
+    display:inline-block;
+    margin-left: 2vw;
+}
 
 .words-container {
     border: 2px solid #e0e0e0 ;
@@ -230,13 +249,13 @@ button, input{
 
 @media screen and (max-width: 1000px) {
     h1 {
-        left: 12vw;
+        left: 14vw;
     }
     .input-container{
         left: 10vw;
     }
     .hexagon-container{
-        left: 28vw;
+        left: 25vw;
     }
     button{
         display:block;
@@ -251,6 +270,7 @@ button, input{
     .rules>.rules-button, .high-scores > .scores-button{
         margin-left: 25vw;
     }
+
 
     .words-container{
         min-height: 80vh;

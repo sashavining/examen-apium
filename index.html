@@ -27,7 +27,7 @@
             <p class="error-text"></p>
             <input type="text" label="input guess" placeholder="Type your guess here">
             <button type="submit" name="submit guess" maxlength="20">Submit Guess</button> 
-            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button"></i><i class="fa-solid fa-trophy"></i><i class="fa-solid fa-circle-info"></i></div>
+            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i></div>
            
         </div>
         <div class="words-container">
@@ -59,9 +59,9 @@
 
         <div class="high-scores" style="display:none">
             <h2>High Scores</h2>
-            <h3>Highest score in a single game:</h3><span class="highest-score"></span>
-            <h3>Longest word played:</h3><span class="longest-word"></span>
-            <h3>Games played:</h3><span class="games-played"></span>
+            <div class="score-row"><span class="high-score-label">Highest score in a single game:</span><span class="highest-score high-score-value"></span></div>
+            <div class="score-row"><span class="high-score-label">Longest word played:</span><span class="longest-word high-score-value"></span></div>
+            <div class="score-row"><span class="high-score-label">Games played:</span><span class="games-played high-score-value"></span></div>
             <button class="scores-button">Close Window</button>
         </div>
 
