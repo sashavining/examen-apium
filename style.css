@@ -149,6 +149,7 @@ that they form a hexagon */
 .words-container{
     padding-left: 3vw;
     padding-right: 3vw;
+    overflow-wrap: break-word; 
 }
 .score-container, .words-container{
     width: 25vw;
@@ -247,6 +248,7 @@ button, input{
     margin-left: 37%;
 }
 
+
 @media screen and (max-width: 1000px) {
     h1 {
         left: 14vw;
@@ -271,7 +273,6 @@ button, input{
         margin-left: 25vw;
     }
 
-
     .words-container{
         min-height: 80vh;
     }
@@ -285,33 +286,66 @@ button, input{
 }
 
 @media screen and (max-width: 650px) {
+   
+    .input-container{
+        width:100vw;
+        padding-right: 0px;
+    }
+    .input-container>button{
+        width: 90%;
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+    input {
+        width: 90%;
+    }
     h1{
-        top: 0px;
-        left: 20vw;
+        left: 15vw;
+        font-size: 3rem;
+        top: 2vh;
     }
     .hexagon-container {
         top: 15vh;
         left: 39vw;
     }
     .words-container{
-        left: 5vw;
+        left: 4vw;
         top: 100vh;
         width: 80vw;
     }
     .input-container{
-        left: 15vw;
-        top: 63vh;
+        left: 4vw;
+        top: 62vh;
     }
     .icons{
         position: absolute;
-        left: 7vw;
+        left: 18vw;
     }
     .score-container{
+        display:block;
         left: 37vw;
-        top: 81vh;
-
+        width: 100%;
+        top: 80vh;
     }
     .error-text{
-        width: 100%;
+        width: 80vw;
+    }
+    button{
+        color: black;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    h1{
+        top: -15px;
+        font-size: 2.5rem;
+        left: 20vw;
+    }
+    .score-container{
+        top: -3vh;
+    }
+    .hexagon-container {
+        top: 13vh;
+        left: 38vw;
     }
 }

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Play Examen Apium!</title>
+    <link rel="shortcut icon" href="beeicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@200&display=swap" rel="stylesheet">
@@ -30,13 +31,16 @@
             <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i></div>
            
         </div>
+    </main>
+    <aside>
+        <div class="score-container">
+            <h2>Score:</h2><span class="score-number">0</span>
+        </div>
         <div class="words-container">
             <h2>Successful Guesses:</h2>
             <div class="successful-guess-container"></div>
         </div>
-        <div class="score-container">
-            <h2>Score:</h2><span class="score-number">0</span>
-        </div>
+       
         <div class="rules" style="display:none">
             <h2>Rules</h2>
             <ul>
@@ -64,9 +68,7 @@
             <div class="score-row"><span class="high-score-label">Games played:</span><span class="games-played high-score-value"></span></div>
             <button class="scores-button">Close Window</button>
         </div>
-
-
-    </main>
+    </aside>
     <script src="main.js"></script>
 </body>
 </html>
