@@ -37,7 +37,7 @@ const gameDisplay = {
     updateScore () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
         const playerScoreDisplays = document.querySelectorAll('.score-number');
-        successfulGuesses.innerText = playerScoreCard.words.join(`, `); 
+        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading , in Safari
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })

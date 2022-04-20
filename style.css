@@ -10,14 +10,15 @@ h1{
 
 h2{
     text-align: center;
+    background-color: #ffef9f;
 }
 
 a {
-    color: #f0c800;
+    color: #939393;
 }
 
 a:hover {
-    color: #b5b5b5;
+    color: #f0c800;
 }
 
 i {
@@ -30,10 +31,6 @@ i:hover {
     color: #b5b5b5
 }
 
-.error-text, h1, h2{
-    color: #f0c800;
-}
-
 .error-text {
     font-size: 1rem;
     padding-left: 0rem;
@@ -42,7 +39,8 @@ i:hover {
 
 .logo-one{
     transform: rotate(60deg);
-  
+    width: 50px;
+    height: auto;
 }
 
 body{
@@ -156,8 +154,8 @@ that they form a hexagon */
     overflow-wrap: break-word; 
 }
 
-.high-scores{
-    padding-left: 3vw;
+.high-scores, .rules, .contact{
+    padding-left: 2vw;
 }
 
 .score-row{
@@ -192,7 +190,7 @@ that they form a hexagon */
     margin-left: 5vw;
 }
 
-.score-container h2{
+.score-container h2, .score-container h3 {
     display:inline-block;
     margin-right: 1vw;
 }
@@ -252,10 +250,6 @@ button, input{
     box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.144);
     padding-right: 2vw;
     padding-bottom: 5vh;
-}
-
-.contact{
-    padding-left: 2vw;
 }
 
 .rules>.rules-button, .high-scores>.scores-button, .contact>.contact-button {
@@ -349,6 +343,10 @@ button, input{
 }
     
 @media screen and (max-width: 650px) {
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
     body{
         grid-template-columns: 1fr;
@@ -387,7 +385,7 @@ button, input{
     }
 
     .icons{
-        margin-left: 25vw;
+        margin-left: 22vw;
     }
     .mobile-visible{
         display:block;
@@ -405,9 +403,8 @@ button, input{
 }
 
 @media screen and (max-width: 440px) {
-    body {
-        overflow-x: hidden;
-    }
+    
+
     main, aside {
         margin-left: 1vw;
     }
@@ -422,7 +419,7 @@ button, input{
         margin-left:-3vw;
     }
     .icons{
-        margin-left: 22vw;
+        margin-left: 15vw;
     }
     .words-container{
         margin-left: -7vw;
@@ -431,7 +428,10 @@ button, input{
         display: absolute;
         top: 80vh;
         left: 5vw;
-        width: 90%;
+        width: 85%;
+    }
+    .mobile-visible {
+        margin-left: 15vw;
     }
 
 }
