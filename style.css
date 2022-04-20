@@ -114,7 +114,7 @@ i:hover {
 }
 .icons{
     margin-top: 5vh;
-    margin-left: 15vw;
+    margin-left: 8vw;
 }
   
   
@@ -431,7 +431,7 @@ button, input{
         display: absolute;
         top: 80vh;
         left: 5vw;
-        width: 85%;
+        width: 90%;
     }
 
 }

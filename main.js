@@ -30,17 +30,17 @@ const gameDisplay = {
             while (document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild.innerText !== "") {
                 randomNum = Math.ceil(Math.random()* 6);
             }
-            console.log(randomNum);
             const container = document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild
-            console.log(container);
             container.innerText = gameBoard.board[i]
         }
     },
     updateScore () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
-        const playerScore = document.querySelector('.score-number');
-        successfulGuesses.innerText = playerScoreCard.words.splice(1).join(", ");
-        playerScore.innerText = playerScoreCard.score;
+        const playerScoreDisplays = document.querySelectorAll('.score-number');
+        successfulGuesses.innerText = playerScoreCard.words.join(`, `); // only adds the last word played in Safari, not scoring on Chrome
+        playerScoreDisplays.forEach(display => {
+            display.textContent = playerScoreCard.score; 
+        })
     },
     showRules () {
         this.hideHighScores();
@@ -101,7 +101,7 @@ function populateLocalStorageOnPageLoad () {
     } else {
         gameBoard.board = localStorage.getItem('examenApisPuzzleBoard').split(",");
         playerScoreCard.score = Number(localStorage.getItem('examenApisPoints'));
-        playerScoreCard.words = localStorage.getItem('examenApisCurrentWords').split(",") 
+        playerScoreCard.words = localStorage.getItem('examenApisCurrentWords').split(`, `) 
         gameDisplay.updateHighScores();
         gameDisplay.updateScore();
     }
@@ -257,6 +257,6 @@ function updateHighScores () {
 }
 
 function updatePlayerScoreCardLocalStorage () {
-    localStorage.setItem('examenApisCurrentWords', `${playerScoreCard.words.join(",")}`)
+    localStorage.setItem('examenApisCurrentWords', `${playerScoreCard.words.join(`, `)}`)
     localStorage.setItem('examenApisPoints', `${playerScoreCard.score}`)
 }
