@@ -2,6 +2,7 @@
     font-family: 'Arima Madurai', sans-serif;
 }
 
+
 h1{
     font-size: 3rem;
     transition: all 1s;
@@ -30,6 +31,24 @@ i {
 i:hover {
     color: #b5b5b5
 }
+
+button {
+    padding: 2px 12px;
+    background-color: #ffef9f;
+    border: 2px solid #f0c800;
+    border-radius: 3px;
+}
+
+button:hover{
+    background-color: #fce46d;
+    border: 2px solid #dcb701;
+}
+
+button, input{
+    font-size:1.1rem;
+    text-align: center;
+}
+
 
 .error-text {
     font-size: 1rem;
@@ -114,11 +133,6 @@ body{
     top:-322px;
     left: -62px;
 }
-
-.icons{
-    margin-top: 5vh;
-    margin-left: 5vw;
-}
   
   
 /* Creating pseudo-class */
@@ -146,6 +160,11 @@ that they form a hexagon */
 
 .one:before, .one:after {
     background-color:#f0c800;
+}
+
+.icons{
+    margin-top: 5vh;
+    margin-left: 5vw;
 }
 
 .words-container{
@@ -191,7 +210,6 @@ that they form a hexagon */
     max-width: 400px;
 }
 
-
 .words-container, .score-container{
     margin-left: 5vw;
 }
@@ -227,23 +245,6 @@ input:hover {
     border-radius: 3px;
 }
 
-button {
-    padding: 2px 12px;
-    background-color: #ffef9f;
-    border: 2px solid #f0c800;
-    border-radius: 3px;
-}
-
-button:hover{
-    background-color: #fce46d;
-    border: 2px solid #dcb701;
-}
-
-button, input{
-    font-size:1.1rem;
-    text-align: center;
-}
-
 .rules, .high-scores, .contact{
     margin-top: -70vh;
     left: 27vw;
@@ -264,36 +265,39 @@ button, input{
 
 @media screen and (max-width: 1050px) {
     h1{
-        margin-top: 5px;
-        margin-bottom: 0px;
+        margin: 1vh 0vw 0vh 2vw;
     }
+
+    .icons{
+        margin-left: 8vw;
+    }
+
     .hexagon-container{
         margin-top: -10px;
     }
+
     .input-container{
         margin-top: -70px;
     }
+
     button{
         display:block;
         width:340px;
         height: 6vh;
         margin-top: 2vh;
     }
-    h1 {
-        margin-left: 2vw;
-    }
+ 
     .hexagon {
         margin-left: 28vw;
     }
-    .icons{
-        margin-left: 8vw;
-    }
+   
     .rules, .high-scores, .contact {
         display: absolute;
         top: 80vh;
         left: 10vw;
         width: 80%;
     }
+
     button.rules-button, button.scores-button, button.rules-button {
         position:relative;
         left:-8vw;
@@ -312,9 +316,18 @@ button, input{
         left: 5vw;
         width: 80%;
     }
+
+    body{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        padding-left: 12vw;
+        overflow-x: hidden;
+    }
+
     main, aside {
         margin-left: -10vw;
     }
+
     button.rules-button, button.scores-button, button.contact-button {
         position:relative;
         left:-7vw;
@@ -323,32 +336,48 @@ button, input{
     .input-container{
         margin-left: 12vw;
     }
-    body{
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        padding-left: 12vw;
-        overflow-x: hidden;
-    }
-   
+
     .input-container{
         margin-left: 15vw;
     }
+
     .icons{
         margin-left: 10vw;
     }
+
     .mobile-visible{
         display:block;
         width: 100%;
     }
+
     .mobile-hidden{
         display: none;
     }
+
     .words-container{
         margin-left: 7vw;
     }
 }
     
 @media screen and (max-width: 650px) {
+    h1{
+        margin-left: -6vw;
+        font-size: 3rem;
+        top: 2vh;
+    }
+      
+    button{
+        color: black;
+        display:block;
+        width:43%;
+        height: 6vh;
+        margin-top: 2vh;
+    }
+
+    .icons{
+        margin-left: 22vw;
+    }
+
     html, body {
         max-width: 100%;
         overflow-x: hidden;
@@ -358,41 +387,31 @@ button, input{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
-    button{
-        display:block;
-        width:43%;
-        height: 6vh;
-        margin-top: 2vh;
-    }
+
     .input-container{
         width:100vw;
         padding-right: 0px;
     }
+
     .input-container>button{
         width: 80%;
         margin-right: 0px;
         padding-right: 0px;
     }
+
     input {
         width: 80%;
     }
 
-    h1{
-        margin-left: -6vw;
-        font-size: 3rem;
-        top: 2vh;
-    }
     .hexagon-container {
         top: 15vh;
         margin-left: 10vw;
     }
+
     .words-container{ 
         width: 80vw;
     }
 
-    .icons{
-        margin-left: 22vw;
-    }
     .mobile-visible{
         display:block;
         width: 100%;
@@ -403,39 +422,42 @@ button, input{
     .error-text{
         width: 80vw;
     }
-    button{
-        color: black;
-    }
+  
 }
 
 @media screen and (max-width: 440px) {
-    
-
-    main, aside {
-        margin-left: 1vw;
-    }
     h1{ 
         margin-left: -20vw;
         font-size: 2.5rem;
     } 
-    .hexagon-container{
-        margin-left: 0vw;
-    }
-    .input-container{
-        margin-left:-3vw;
-    }
+
     .icons{
         margin-left: 15vw;
     }
+
+    main, aside {
+        margin-left: 1vw;
+    }
+   
+    .hexagon-container{
+        margin-left: 0vw;
+    }
+
+    .input-container{
+        margin-left:-3vw;
+    }
+   
     .words-container{
         margin-left: -7vw;
     }
+
     .rules, .high-scores, .contact {
         display: absolute;
         top: 80vh;
         left: 5vw;
         width: 85%;
     }
+    
     .mobile-visible {
         margin-left: 15vw;
     }
