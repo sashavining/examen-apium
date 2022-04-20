@@ -1,8 +1,6 @@
 document.querySelector('button').addEventListener('click', playWord);
 
 const gameBoard = new Board;
-// **doesn't update DOM with player scorecard values**
-// doesn't update the scorecard on page load either
 
 const playerScoreCard = {
     words: [],
@@ -116,7 +114,7 @@ function Board () {
         board: [],
         generateBoard () {
             this.resetBoard();
-            const letters = "aaabcdeeeefghiiilmnoopqrstuuuv"
+            const letters = "aaabbbccddeeeefghiiiilmmnnoooopqqrssttuuuuv"
             for (i = 0; i < 7; i++) {
                 let generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 while (this.board.includes(generatedLetter)) {

@@ -28,17 +28,22 @@
             <p class="error-text"></p>
             <input type="text" label="input guess" placeholder="Type your guess here">
             <button type="submit" name="submit guess" maxlength="20">Submit Guess</button> 
-            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i></div>
+            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i>
+            <div class="score-container mobile-visible">
+                    <h2>Score:</h2><span class="score-number">0</span>
+            </div></div>
            
         </div>
     </main>
     <aside>
-        <div class="score-container">
-            <h2>Score:</h2><span class="score-number">0</span>
-        </div>
+        
         <div class="words-container">
             <h2>Successful Guesses:</h2>
             <div class="successful-guess-container"></div>
+            
+        </div>
+        <div class="score-container mobile-hidden">
+            <h2>Score:</h2><span class="score-number">0</span>
         </div>
        
         <div class="rules" style="display:none">
