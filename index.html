@@ -10,6 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D1M2N1Q2RW"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-D1M2N1Q2RW');
+    </script>
     <script src="https://kit.fontawesome.com/441053ed4b.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -28,7 +36,7 @@
             <p class="error-text"></p>
             <input type="text" label="input guess" placeholder="Type your guess here">
             <button type="submit" name="submit guess" maxlength="20">Submit Guess</button> 
-            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i>
+            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i><i class="fa-solid fa-envelope" id="contact-button"></i>
             <div class="score-container mobile-visible">
                     <h2>Score:</h2><span class="score-number">0</span>
             </div></div>
@@ -72,6 +80,12 @@
             <div class="score-row"><span class="high-score-label">Longest word played:</span><span class="longest-word high-score-value"></span></div>
             <div class="score-row"><span class="high-score-label">Games played:</span><span class="games-played high-score-value"></span></div>
             <button class="scores-button">Close Window</button>
+        </div>
+
+        <div class="contact" style="display:none">
+            <h2>Contact Information</h2>
+            <p>Please feel free to <a href="mailto:examenapium@gmail.com">send an email to examenapium@gmail.com</a> with any questions, comments, or feedback! </p>
+            <button class="contact-button">Close Window</button>
         </div>
     </aside>
     <script src="main.js"></script>

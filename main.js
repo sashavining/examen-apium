@@ -74,6 +74,14 @@ const gameDisplay = {
     hideHighScores () {
         const highScoresContainer = document.querySelector(".high-scores");
         highScoresContainer.setAttribute('style', 'display:none;')
+    },
+    showContact () {
+        const contactContainer = document.querySelector(".contact");
+        contactContainer.removeAttribute('style', 'display:block;')
+    },
+    hideContact () {
+        const contactContainer = document.querySelector(".contact");
+        contactContainer.setAttribute('style', 'display:none;')
     }
 }
 
@@ -149,6 +157,12 @@ const highScoreOpenButton = document.querySelector("#high-scores-button");
 highScoreOpenButton.addEventListener('click', gameDisplay.showHighScores.bind(gameDisplay));
 const highScoreCloseButton = document.querySelector(".scores-button");
 highScoreCloseButton.addEventListener('click', gameDisplay.hideHighScores.bind(gameDisplay));
+const contactCloseButton = document.querySelector(".contact-button");
+const contactOpenButton = document.querySelector("#contact-button");
+contactOpenButton.addEventListener('click', gameDisplay.showContact.bind(gameDisplay))
+contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDisplay))
+
+// add event listener to make that happen
 
 
 let isCurrentPlayValid;

@@ -14,6 +14,24 @@ h2{
     text-align: center;
 }
 
+a {
+    color: #f0c800;
+}
+
+a:hover {
+    color: #b5b5b5;
+}
+
+i {
+    font-size: 2.5rem;
+    color: #939393;
+    margin-right: 3vw;
+}
+
+i:hover {
+    color: #b5b5b5
+}
+
 .error-text, h1, h2{
     color: #f0c800;
 }
@@ -103,18 +121,9 @@ body{
     left: -62px;
 }
 
-i {
-    font-size: 2.5rem;
-    color: #939393;
-    margin-right: 3vw;
-}
-
-i:hover {
-    color: #b5b5b5
-}
 .icons{
     margin-top: 5vh;
-    margin-left: 8vw;
+    margin-left: 5vw;
 }
   
   
@@ -235,7 +244,7 @@ button, input{
     text-align: center;
 }
 
-.rules, .high-scores{
+.rules, .high-scores, .contact{
     margin-top: -70vh;
     left: 27vw;
     position: absolute; 
@@ -249,7 +258,11 @@ button, input{
     padding-bottom: 5vh;
 }
 
-.rules>.rules-button, .high-scores>.scores-button {
+.contact{
+    padding-left: 2vw;
+}
+
+.rules>.rules-button, .high-scores>.scores-button, .contact>.contact-button {
     margin-left: 37%;
 }
 
@@ -279,13 +292,13 @@ button, input{
     .icons{
         margin-left: 8vw;
     }
-    .rules, .high-scores {
+    .rules, .high-scores, .contact {
         display: absolute;
         top: 80vh;
         left: 10vw;
         width: 80%;
     }
-    button.rules-button, button.scores-button {
+    button.rules-button, button.scores-button, button.rules-button {
         position:relative;
         left:-8vw;
     }
@@ -297,18 +310,18 @@ button, input{
     .hexagon-container{
         margin-left: 5vw;
     }
-    .rules, .high-scores {
+    .rules, .high-scores, .contact {
         display: absolute;
         top: 80vh;
         left: 5vw;
-        width: 60%;
+        width: 80%;
     }
     main, aside {
         margin-left: -10vw;
     }
-    button.rules-button, button.scores-button {
+    button.rules-button, button.scores-button, button.contact-button {
         position:relative;
-        left:-12vw;
+        left:-7vw;
     }
 
     .input-container{
@@ -328,9 +341,7 @@ button, input{
         margin-left: 10vw;
     }
     .mobile-visible{
-        display:block;/*
-        left: 37vw;
-        top: 80vh;*/
+        display:block;
         width: 100%;
     }
     .mobile-hidden{
@@ -375,22 +386,15 @@ button, input{
         top: 15vh;
         margin-left: 10vw;
     }
-    .words-container{ /*
-        left: 4vw;
-        top: 100vh; */
+    .words-container{ 
         width: 80vw;
     }
-    /*.input-container{
-        left: 4vw;
-        top: 62vh;
-    }*/
+
     .icons{
         margin-left: 25vw;
     }
     .mobile-visible{
-        display:block;/*
-        left: 37vw;
-        top: 80vh;*/
+        display:block;
         width: 100%;
     }
     .mobile-hidden{
@@ -427,7 +431,7 @@ button, input{
     .words-container{
         margin-left: -7vw;
     }
-    .rules, .high-scores {
+    .rules, .high-scores, .contact {
         display: absolute;
         top: 80vh;
         left: 5vw;
