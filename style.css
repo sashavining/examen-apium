@@ -158,6 +158,12 @@ that they form a hexagon */
     padding-left: 2vw;
 }
 
+.score-label{
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 2vh 1vw 2vh 0vw;
+}
+
 .score-row{
     display:block;
     width:100%;

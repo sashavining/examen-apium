@@ -1,4 +1,3 @@
-document.querySelector('button').addEventListener('click', playWord);
 
 const gameBoard = new Board;
 
@@ -9,7 +8,7 @@ const playerScoreCard = {
 const gameDisplay = {
     hexagonDivNumber: ["one", "two", "three", "four", "five", "six", "seven"],
 
-    populateDisplay () {
+    populateBoard () {
         for (i = 0; i < 7; i ++) {
             const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
             container.textContent = gameBoard.board[i]
@@ -41,6 +40,9 @@ const gameDisplay = {
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
+    },
+    clearGuess () {
+        document.querySelector('input').value = ""; 
     },
     showRules () {
         this.hideHighScores();
@@ -86,43 +88,13 @@ const gameDisplay = {
 }
 
 
-function populateLocalStorageOnPageLoad () {
-    const date = new Date(Date.now()).toLocaleString().split(',')[0]
-    if(localStorage.getItem("examenApisLastPlayed") === null) {
-        gameBoard.generateBoard();
-        localStorage.setItem('examenApisLastPlayed', date);
-        localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
-        localStorage.setItem('examenApisPoints', '0');
-        localStorage.setItem('examenApisCurrentWords', '');
-        localStorage.setItem('examenApisHighScore', '0');
-        localStorage.setItem('examenApisLongestWord', ' ');
-        localStorage.setItem('examenApisDaysPlayed', '1');
-    } else if (localStorage.getItem("examenApisLastPlayed") !== date) {
-        gameBoard.generateBoard();
-        localStorage.setItem('examenApisLastPlayed', date);
-        localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
-        localStorage.setItem('examenApisPoints', '0');
-        localStorage.setItem('examenApisCurrentWords', ' ');
-        let currentNumOfDaysPlayed = Number(localStorage.getItem('examenApisDaysPlayed'));
-        localStorage.setItem('examenApisDaysPlayed', `${currentNumOfDaysPlayed += 1}`);
-        gameDisplay.updateHighScores();
-    } else {
-        gameBoard.board = localStorage.getItem('examenApisPuzzleBoard').split(",");
-        playerScoreCard.score = Number(localStorage.getItem('examenApisPoints'));
-        playerScoreCard.words = localStorage.getItem('examenApisCurrentWords').split(`, `) 
-        gameDisplay.updateHighScores();
-        gameDisplay.updateScore();
-    }
-}
-
-populateLocalStorageOnPageLoad();
-
 function Board () {
     return {
         board: [],
         generateBoard () {
             this.resetBoard();
-            const letters = "aaabbbccddeeeefghiiiilmmnnoooopqqrssttuuuuv"
+            const letters = "aaaaaaaaabccccdddeeeeeeeeeeefghiiiiiiiiiiilllmmmmmnnnnnnooooopppqqrrrrrrrssssssssttttttttuuuuuuuuuv"
+            // letter frequencies from https://www.sttmedia.com/characterfrequency-latin. Any letter that appears < 1% has been omitted
             for (i = 0; i < 7; i++) {
                 let generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 while (this.board.includes(generatedLetter)) {
@@ -146,7 +118,6 @@ function Board () {
 const keys = document.querySelectorAll('.hexagon');
 keys.forEach(key => key.addEventListener('click', gameDisplay.inputLetterFromButton));
 
-gameDisplay.populateDisplay();
 const refreshButton = document.querySelector("#refresh-button");
 refreshButton.addEventListener("click", gameDisplay.shuffleDisplay.bind(gameDisplay));
 const rulesOpenButton = document.querySelector(".fa-circle-info");
@@ -165,65 +136,64 @@ contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDi
 
 let isCurrentPlayValid;
 
-function playWord () {
-    const inputtedWord = document.querySelector('input').value.toLowerCase();
-    let errorTextContainer = document.querySelector('.error-text')
-    clearGuess();
-    if (!checkIfWordLongEnough(inputtedWord)) {
-        errorTextContainer.innerText = "Words should be at least four letters long!";
-        return;
-    } else if (!checkIfUsesOneRequiredLetter(inputtedWord)) {
-        errorTextContainer.innerText = "Use the center yellow letter!";
-        return;
-    } else if (!checkIfAllLettersAllowed(inputtedWord)) {
-        errorTextContainer.innerText = "Use only the letters on the gameboard!";
-        return;
-    } else if (checkIfWordAleadyPlayed(inputtedWord)) {
-        errorTextContainer.innerText = "You already played that word!";
-        return;
-    } else {
-        checkIfLatinWord(inputtedWord).then(() => {
-            console.log(isCurrentPlayValid);
-            if (!isCurrentPlayValid) {
-                errorTextContainer.innerText = "That is not a valid Latin word!";
-                return;
-            } else {
-                errorTextContainer.innerText = "";
-                playerScoreCard.words.push(inputtedWord);
-                playerScoreCard.score += scoreWord(inputtedWord);    
-                gameDisplay.updateScore();
-                updateHighScores();
-                gameDisplay.updateHighScores();
-                updatePlayerScoreCardLocalStorage();
-            }
-        })
-    }  
-}
+const gameLogic = { 
+    playWord () {
+        const inputtedWord = document.querySelector('input').value.toLowerCase();
+        let errorTextContainer = document.querySelector('.error-text')
+        gameDisplay.clearGuess();
+        if (!this.checkIfWordLongEnough(inputtedWord)) {
+            errorTextContainer.innerText = "Words should be at least four letters long!";
+            return;
+        } else if (!this.checkIfUsesOneRequiredLetter(inputtedWord)) {
+            errorTextContainer.innerText = "Use the center yellow letter!";
+            return;
+        } else if (!this.checkIfAllLettersAllowed(inputtedWord)) {
+            errorTextContainer.innerText = "Use only the letters on the gameboard!";
+            return;
+        } else if (this.checkIfWordAleadyPlayed(inputtedWord)) {
+            errorTextContainer.innerText = "You already played that word!";
+            return;
+        } else {
+            this.checkIfLatinWord(inputtedWord).then(() => {
+                console.log(isCurrentPlayValid);
+                if (!isCurrentPlayValid) {
+                    errorTextContainer.innerText = "That is not a valid Latin word!";
+                    return;
+                } else {
+                    errorTextContainer.innerText = "";
+                    playerScoreCard.words.push(inputtedWord);
+                    playerScoreCard.score += this.scoreWord(inputtedWord);    
+                    gameDisplay.updateScore();
+                    gameDisplay.updateHighScores();
+                    localStorageLogic.updateHighScores();
+                    localStorageLogic.updatePlayerScoreCard();
+                }
+            })
+        }  
+    },
+    checkIfLatinWord: async (str) => {
+        try {
+            const response = await fetch(`https://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat&word=${str}`, { mode: 'cors' });
+            const dataOut = await response.json();
+            isCurrentPlayValid = Object.keys(dataOut.RDF.Annotation).join("").includes('hasBody');
+        }
+        catch (err) {
+            console.log(`error ${err}`);
+        }
+    },
 
-async function checkIfLatinWord (str) {
-    try {
-        const response = await fetch(`https://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat&word=${str}`, {mode: 'cors'})
-        const dataOut = await response.json();
-        isCurrentPlayValid = Object.keys(dataOut.RDF.Annotation).join("").includes('hasBody');
-    }
-    catch (err) {
-        console.log(`error ${err}`);
-    } 
-};
+    checkIfWordAleadyPlayed (word) {
+        return playerScoreCard.words.includes(word)
+    },
 
-function checkIfWordAleadyPlayed (word) {
-    return playerScoreCard.words.includes(word)
-}
+    checkIfWordLongEnough (word) {
+        return word.length >= 4
+    },
 
-function checkIfWordLongEnough (word) {
-    return word.length >= 4
-};
-
-function checkIfUsesOneRequiredLetter (word) {
-    return word.toLowerCase().includes(gameBoard.board[0])
-}
-
-function checkIfAllLettersAllowed (word) {
+    checkIfUsesOneRequiredLetter (word) {
+        return word.toLowerCase().includes(gameBoard.board[0])
+    },
+    checkIfAllLettersAllowed (word) {
     const wordArray = word.split("");
     for (i = 0; i < wordArray.length; i++) {
         if (!gameBoard.board.includes(wordArray[i])) {
@@ -231,9 +201,9 @@ function checkIfAllLettersAllowed (word) {
         } 
     }
     return true;
-}
+    },
 
-function checkPangram (str, arr) {
+    checkPangram (str, arr) {
     if (str.length !== arr.length) {
         return false
     }
@@ -241,34 +211,72 @@ function checkPangram (str, arr) {
     let arrNormalized  = arr.sort().join("");
 
     return strNormalized === arrNormalized
-}
+    },
 
-function scoreWord (word) { 
+    scoreWord (word) { 
     if (word.length === 4) {
         return 1
-    } else if (checkPangram(word, gameBoard.board)) {
+    } else if (this.checkPangram(word, gameBoard.board)) {
         return 14
     } else if (word.length > 4) {
         return word.length
     }
-}
-
-function clearGuess () {
-    document.querySelector('input').value = ""; 
-}
-
-function updateHighScores () {
-    if (playerScoreCard.score > Number(localStorage.getItem('examenApisHighScore'))) {
-        localStorage.setItem('examenApisHighScore', `${playerScoreCard.score}`);
     }
-    playerScoreCard.words.forEach((word) => {
-        if (word.length > Number(localStorage.getItem('examenApisLongestWord'))) {
-            localStorage.setItem('examenApisLongestWord', `${word.length}`)
-        }
-    })
 }
 
-function updatePlayerScoreCardLocalStorage () {
-    localStorage.setItem('examenApisCurrentWords', `${playerScoreCard.words.join(`, `)}`)
-    localStorage.setItem('examenApisPoints', `${playerScoreCard.score}`)
+document.querySelector('button').addEventListener('click', gameLogic.playWord.bind(gameLogic));
+
+const localStorageLogic = {
+    populateOnPageLoad () {
+        const date = new Date(Date.now()).toLocaleString().split(',')[0]
+        if(localStorage.getItem("examenApisLastPlayed") === null) {
+            gameBoard.generateBoard();
+            localStorage.setItem('examenApisLastPlayed', date);
+            localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
+            localStorage.setItem('examenApisPoints', '0');
+            localStorage.setItem('examenApisCurrentWords', '');
+            localStorage.setItem('examenApisHighScore', '0');
+            localStorage.setItem('examenApisLongestWord', ' ');
+            localStorage.setItem('examenApisDaysPlayed', '1');
+            gameDisplay.updateHighScores();
+            gameDisplay.populateBoard();
+        } else if (localStorage.getItem("examenApisLastPlayed") !== date) {
+            gameBoard.generateBoard();
+            localStorage.setItem('examenApisLastPlayed', date);
+            localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
+            localStorage.setItem('examenApisPoints', '0');
+            localStorage.setItem('examenApisCurrentWords', ' ');
+            let currentNumOfDaysPlayed = Number(localStorage.getItem('examenApisDaysPlayed'));
+            localStorage.setItem('examenApisDaysPlayed', `${currentNumOfDaysPlayed += 1}`);
+            gameDisplay.updateHighScores();
+            gameDisplay.populateBoard();
+        } else {
+            gameBoard.board = localStorage.getItem('examenApisPuzzleBoard').split(",");
+            playerScoreCard.score = Number(localStorage.getItem('examenApisPoints'));
+            playerScoreCard.words = localStorage.getItem('examenApisCurrentWords').split(`, `) 
+            localStorageLogic.updateHighScores();
+            gameDisplay.updateHighScores();
+            gameDisplay.populateBoard();
+            gameDisplay.updateScore();
+        }
+    },
+    updateHighScores () {
+        if (playerScoreCard.score > Number(localStorage.getItem('examenApisHighScore'))) {
+            localStorage.setItem('examenApisHighScore', `${playerScoreCard.score}`);
+        }
+        playerScoreCard.words.forEach((word) => {
+            if (word.length > Number(localStorage.getItem('examenApisLongestWord'))) {
+                localStorage.setItem('examenApisLongestWord', `${word.length}`)
+            }
+        })
+    },
+    updatePlayerScoreCard () {
+        localStorage.setItem('examenApisCurrentWords', `${playerScoreCard.words.join(`, `)}`)
+        localStorage.setItem('examenApisPoints', `${playerScoreCard.score}`)
+    }    
 }
+
+localStorageLogic.populateOnPageLoad();
+
+
+

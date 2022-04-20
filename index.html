@@ -22,15 +22,15 @@
 </head>
 <body>
     <main>
-        <h1>Examen Apium<img src="beeicon.png" alt="bee icon" class="logo-one"></h1>
+        <h1>Examen Apium<img src="beeicon.png" alt="bee logo" class="logo-one"></h1>
         <div class="hexagon-container">
-            <div class="hexagon one"><div></div></div>
-            <div class="hexagon two"><div></div></div>
-            <div class="hexagon three"><div></div></div>
-            <div class="hexagon four"><div></div></div>
-            <div class="hexagon five"><div></div></div>
-            <div class="hexagon six"><div></div></div>
-            <div class="hexagon seven"><div></div></div>
+            <div class="hexagon one"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon two"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon three"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon four"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon five"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon six"><div role="button" aria-label="required letter button"></div></div>
+            <div class="hexagon seven"><div role="button" aria-label="required letter button"></div></div>
         </div>
         <div class="input-container">
             <p class="error-text"></p>
@@ -38,7 +38,7 @@
             <button type="submit" name="submit guess" maxlength="20">Submit Guess</button> 
             <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i><i class="fa-solid fa-envelope" id="contact-button"></i>
             <div class="score-container mobile-visible">
-                    <h3>Score:</h3><span class="score-number">0</span>
+                <span class="score-label">Score:</span><span class="score-number">0</span>
             </div></div>
            
         </div>
@@ -51,7 +51,7 @@
             
         </div>
         <div class="score-container mobile-hidden">
-            <h3>Score:</h3><span class="score-number">0</span>
+            <span class="score-label">Score:</span><span class="score-number">0</span>
         </div>
        
         <div class="rules" style="display:none">
@@ -63,6 +63,7 @@
                 <li>Only use letters from the game board.</li>
                 <li>You may use letters more than once.</li>
                 <li>Words must include the center letter.</li>
+                <li>"U" and "v" are counted as different letters</li>
                 <li>Come back tomorrow for a new puzzle! Your daily puzzle is unique to you, and refreshes daily.</li>
             </ul>
             <h2>Scoring</h2>
