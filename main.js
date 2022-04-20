@@ -203,12 +203,12 @@ const gameLogic = {
     return true;
     },
 
-    checkPangram (str, arr) {
+    checkIfPangram (str, arr) {
     if (str.length !== arr.length) {
         return false
     }
     let strNormalized = str.toLowerCase().split("").sort().join("");
-    let arrNormalized  = arr.sort().join("");
+    let arrNormalized  = [...arr].sort().join("");
 
     return strNormalized === arrNormalized
     },
@@ -216,7 +216,7 @@ const gameLogic = {
     scoreWord (word) { 
     if (word.length === 4) {
         return 1
-    } else if (this.checkPangram(word, gameBoard.board)) {
+    } else if (this.checkIfPangram(word, gameBoard.board)) {
         return 14
     } else if (word.length > 4) {
         return word.length
