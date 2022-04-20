@@ -37,7 +37,7 @@ const gameDisplay = {
     updateScore () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
         const playerScoreDisplays = document.querySelectorAll('.score-number');
-        successfulGuesses.innerText = playerScoreCard.words.join(`, `); // only adds the last word played in Safari, not scoring on Chrome
+        successfulGuesses.innerText = playerScoreCard.words.join(`, `); 
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
@@ -161,8 +161,6 @@ const contactCloseButton = document.querySelector(".contact-button");
 const contactOpenButton = document.querySelector("#contact-button");
 contactOpenButton.addEventListener('click', gameDisplay.showContact.bind(gameDisplay))
 contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDisplay))
-
-// add event listener to make that happen
 
 
 let isCurrentPlayValid;

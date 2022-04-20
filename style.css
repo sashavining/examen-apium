@@ -4,8 +4,6 @@
 
 h1{
     font-size: 3rem;
-    /*position: absolute;
-    left: 26vw;*/
     transition: all 1s;
     text-align: center;
 }
@@ -44,9 +42,7 @@ i:hover {
 
 .logo-one{
     transform: rotate(60deg);
-  /*  position:absolute;
-    left:-40px;
-    top: -5px;*/
+  
 }
 
 body{
