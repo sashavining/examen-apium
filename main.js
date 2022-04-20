@@ -46,6 +46,7 @@ const gameDisplay = {
     },
     showRules () {
         this.hideHighScores();
+        this.hideContact();
         const rulesContainer = document.querySelector(".rules");
         rulesContainer.removeAttribute('style', 'display:block;')
     },   
@@ -70,6 +71,7 @@ const gameDisplay = {
     showHighScores () {
         this.updateHighScores();
         this.hideRules();
+        this.hideContact();
         const highScoresContainer = document.querySelector(".high-scores");
         highScoresContainer.removeAttribute('style', 'display:block;')
     },
@@ -78,6 +80,8 @@ const gameDisplay = {
         highScoresContainer.setAttribute('style', 'display:none;')
     },
     showContact () {
+        this.hideRules();
+        this.hideHighScores();
         const contactContainer = document.querySelector(".contact");
         contactContainer.removeAttribute('style', 'display:block;')
     },
