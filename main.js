@@ -36,7 +36,7 @@ const gameDisplay = {
     updateScore () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
         const playerScoreDisplays = document.querySelectorAll('.score-number');
-        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading , in Safari
+        successfulGuesses.innerText = (playerScoreCard.words[0] === " ") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading , in Safari
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
@@ -139,7 +139,7 @@ let isCurrentPlayValid;
 const gameLogic = { 
     playWord () {
         const inputtedWord = document.querySelector('input').value.toLowerCase();
-        let errorTextContainer = document.querySelector('.error-text')
+        let errorTextContainer = document.querySelector('.error-text');
         gameDisplay.clearGuess();
         if (!this.checkIfWordLongEnough(inputtedWord)) {
             errorTextContainer.innerText = "Words should be at least four letters long!";
