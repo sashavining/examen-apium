@@ -1,4 +1,8 @@
+/* requested features:
+- keyboard inputs
+- unsuccessful guesses
 
+*/
 const gameBoard = new Board;
 
 const playerScoreCard = {
@@ -104,12 +108,18 @@ function Board () {
                 while (this.board.includes(generatedLetter)) {
                     generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 } 
-                if (generatedLetter === "q") {
-                    this.board.push(generatedLetter);
-                    this.board.push("u");
-                    i++
-                    continue;
-                }
+                if (generatedLetter === "q" && !this.board.join("").contains("u")) {
+                    if (this.board.length < 6) {
+                        this.board.push(generatedLetter);
+                        this.board.push("u");
+                        i++
+                        continue;
+                    } else {
+                        this.board.push(generatedLetter);
+                        this.board[2] = "u";
+                        continue;
+                    }
+                } 
                 this.board.push(generatedLetter);
             }
         },
