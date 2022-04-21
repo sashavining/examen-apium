@@ -104,6 +104,12 @@ function Board () {
                 while (this.board.includes(generatedLetter)) {
                     generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 } 
+                if (generatedLetter === "q") {
+                    this.board.push(generatedLetter);
+                    this.board.push("u");
+                    i++
+                    continue;
+                }
                 this.board.push(generatedLetter);
             }
         },
