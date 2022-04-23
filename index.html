@@ -36,7 +36,7 @@
             <p class="error-text"></p>
             <input type="text" label="input guess" placeholder="Type your guess here" maxlength="20">
             <button type="submit" name="submit guess">Submit Guess</button> 
-            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i><i class="fa-solid fa-envelope" id="contact-button"></i>
+            <div class="icons"> <i class="fa-solid fa-arrows-rotate" id="refresh-button" alt="refresh page"></i><i class="fa-solid fa-trophy" id="high-scores-button" alt="view high scores"></i><i class="fa-solid fa-circle-info" alt='read rules'></i><i class="fa-solid fa-arrow-down-a-z" id="alphabetize-button-mobile" alt="alphabetize successful guesses"></i> <i class="fa-solid fa-envelope" id="contact-button" alt="contact"></i>  
             <div class="score-container mobile-visible">
                 <span class="score-label">Score:</span><span class="score-number">0</span>
             </div></div>
@@ -44,9 +44,8 @@
         </div>
     </main>
     <aside>
-        
         <div class="words-container">
-            <h2>Successful Guesses:</h2>
+           <h2>Successful Guesses: </h2>      <i class="fa-solid fa-arrow-down-a-z" id="alphabetize-button-desktop"></i>  
             <div class="successful-guess-container"></div>
             
         </div>
@@ -86,6 +85,9 @@
         <div class="contact" style="display:none">
             <h2>Contact Information</h2>
             <p>Please feel free to <a href="mailto:examenapium@gmail.com">send an email to examenapium@gmail.com</a> with any questions, comments, or feedback! </p>
+            <h2>About</h2>
+            <p>Examen Apium is a Latin translation of the NYTimes Spelling Bee puzzle. It is a work in progress, created by a Latin-teacher-turned-developer: <a href="sashavining.com">Sasha Vining</a></p>
+            <p>Thanks to Andrew Morehouse of <a href="https://www.habesnelac.com/">Habesne Lac?</a> for suggesting the wonderfully punny name!</p>
             <button class="contact-button">Close Window</button>
         </div>
     </aside>

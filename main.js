@@ -43,14 +43,14 @@ const gameDisplay = {
     updateScore () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
         const playerScoreDisplays = document.querySelectorAll('.score-number');
-        successfulGuesses.innerText = (playerScoreCard.words[0] === " ") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading , in Safari
+        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading ,
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
     },
     alphabetizeSuccessfulGuesses () {
         const successfulGuesses = document.querySelector('.successful-guess-container');
-        successfulGuesses.innerText = (playerScoreCard.words[0] === " ") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
+        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
     },
     clearGuess () {
         document.querySelector('input').value = ""; 
@@ -115,7 +115,7 @@ function Board () {
                 while (this.board.includes(generatedLetter)) {
                     generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
                 } 
-                if (generatedLetter === "q" && !this.board.join("").contains("u")) {
+                if (generatedLetter === "q" && !this.board.join("").includes("u")) {
                     if (this.board.length < 6) {
                         this.board.push(generatedLetter);
                         this.board.push("u");
@@ -157,8 +157,14 @@ const highScoreCloseButton = document.querySelector(".scores-button");
 highScoreCloseButton.addEventListener('click', gameDisplay.hideHighScores.bind(gameDisplay));
 const contactCloseButton = document.querySelector(".contact-button");
 const contactOpenButton = document.querySelector("#contact-button");
-contactOpenButton.addEventListener('click', gameDisplay.showContact.bind(gameDisplay))
-contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDisplay))
+contactOpenButton.addEventListener('click', gameDisplay.showContact.bind(gameDisplay));
+contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDisplay));
+const alphabetizeButtonMobile = document.querySelector("#alphabetize-button-mobile");
+const alphabetizeButtonDesktop= document.querySelector("#alphabetize-button-desktop");
+alphabetizeButtonMobile.addEventListener('click', gameDisplay.alphabetizeSuccessfulGuesses);
+alphabetizeButtonDesktop.addEventListener('click', gameDisplay.alphabetizeSuccessfulGuesses);
+
+
 
 
 let isCurrentPlayValid;
