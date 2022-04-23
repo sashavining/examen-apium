@@ -1,7 +1,10 @@
 /* requested features:
 - keyboard inputs
 - unsuccessful guesses
-
+- I thought the icon to the left of the trophy was to clear what I had entered in the "Type your guess here" field.
+- It occurred to me though that it'd be nice to be able to clear the info in the "Type your guess here" field.
+- Also, consider crediting yourself on the page and linking to your website or wherever you'd like to direct people.
+- alphabetize inputs (David)
 */
 const gameBoard = new Board;
 
@@ -44,6 +47,10 @@ const gameDisplay = {
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
+    },
+    alphabetizeSuccessfulGuesses () {
+        const successfulGuesses = document.querySelector('.successful-guess-container');
+        successfulGuesses.innerText = (playerScoreCard.words[0] === " ") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
     },
     clearGuess () {
         document.querySelector('input').value = ""; 
