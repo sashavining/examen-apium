@@ -10,10 +10,14 @@ class ScoreCard {
         this.score = 0;
     }
     addWord (word) {
-        this.words.push(word)
+        if (this.words[0] === "") {
+            this.words[0] = words;
+        } else {
+            this.words.push(word);
+        }
     }
     addPoints (points) {
-        score += points;
+        this.score += points;
     }
 }
 
@@ -31,6 +35,7 @@ const gameDisplay = (() => {
     const contactOpenButton = document.querySelector("#contact-button");
     const alphabetizeButtonMobile = document.querySelector("#alphabetize-button-mobile");
     const alphabetizeButtonDesktop= document.querySelector("#alphabetize-button-desktop");
+    const clearButton = document.querySelector("#clear-button")
 
     const successfulGuesses = document.querySelector('.successful-guess-container');
     const playerScoreDisplays = document.querySelectorAll('.score-number');
@@ -71,13 +76,13 @@ const gameDisplay = (() => {
         }
     };
     const updateScore = () => {
-        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading ,
+        successfulGuesses.innerText = (playerScoreCard.words[0] === "" || playerScoreCard.words[0] === " ") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading ,
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
     };
     const alphabetizeSuccessfulGuesses = () => {
-        successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
+        successfulGuesses.innerText = (playerScoreCard.words[0] === "" || playerScoreCard.words[0] === " ") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
     };
 
     const clearGuess = () => {
@@ -98,7 +103,7 @@ const gameDisplay = (() => {
     };
 
     const getGuess = () => {
-        const inputtedWord = wordInput.value.toLowerCase();
+        let inputtedWord = wordInput.value.toLowerCase();
         clearGuess();
         return inputtedWord;
     };
@@ -141,6 +146,7 @@ const gameDisplay = (() => {
     contactCloseButton.addEventListener('click', hideContact);
     alphabetizeButtonMobile.addEventListener('click', alphabetizeSuccessfulGuesses);
     alphabetizeButtonDesktop.addEventListener('click', alphabetizeSuccessfulGuesses);
+    clearButton.addEventListener('click', clearGuess)
 
     return {getGuess, updateScore, updateHighScores, populateBoard}
     
@@ -190,7 +196,6 @@ const gameBoard = (() => {
 
 const gameLogic = (() => { 
     let isCurrentPlayValid;
-    const inputtedWord = gameDisplay.getGuess();
     const errorTextContainer = document.querySelector('.error-text');
 
     const checkIfLatinWord = async function (str) {
@@ -204,20 +209,20 @@ const gameLogic = (() => {
         }
     };
 
-    const checkIfWordAleadyPlayed = () => {
-        return playerScoreCard.words.includes(inputtedWord)
+    const checkIfWordAleadyPlayed = (word) => {
+        return playerScoreCard.words.includes(word)
     };
 
-    const checkIfWordLongEnough = () => {
-        return inputtedWord.length >= 4
+    const checkIfWordLongEnough = (word) => {
+        return word.length >= 4
     };
 
-    const checkIfUsesOneRequiredLetter = () => {
-        return inputtedWord.toLowerCase().includes(gameBoard.getBoard()[0])
+    const checkIfUsesOneRequiredLetter = (word) => {
+        return word.toLowerCase().includes(gameBoard.getBoard()[0])
     };
 
-    const checkIfAllLettersAllowed = () => {
-        const wordArray = inputtedWord.split("");
+    const checkIfAllLettersAllowed = (word) => {
+        const wordArray = word.split("");
         for (i = 0; i < wordArray.length; i++) {
             if (!gameBoard.getBoard().includes(wordArray[i])) {
                 return false; 
@@ -237,7 +242,7 @@ const gameLogic = (() => {
     const scoreWord = (word) => { 
         if (word.length === 4) {
             return 1
-        } else if (checkIfPangram(word, gameboard.getBoard())) {
+        } else if (checkIfPangram(word, gameBoard.getBoard())) {
             return 14
         } else if (word.length > 4) {
             return word.length
@@ -245,6 +250,7 @@ const gameLogic = (() => {
     }
 
     const playWord = () => {
+        let inputtedWord = gameDisplay.getGuess();
         if (!checkIfWordLongEnough(inputtedWord)) {
             errorTextContainer.innerText = "Words should be at least four letters long!";
             return;
@@ -280,17 +286,17 @@ const gameLogic = (() => {
 })();
 
 const localStorageLogic = {
+    date: new Date(Date.now()).toLocaleString().split(',')[0],
     populateOnPageLoad () {
-        const date = new Date(Date.now()).toLocaleString().split(',')[0]
         if(localStorage.getItem("examenApisLastPlayed") === null) {
             gameBoard.generateBoard();
             this.setNewLocalStorage();
             gameDisplay.updateHighScores();
             gameDisplay.populateBoard();
-        } else if (localStorage.getItem("examenApisLastPlayed") !== date) {
+        } else if (localStorage.getItem("examenApisLastPlayed") !== this.date) {
             let currentNumOfDaysPlayed = Number(localStorage.getItem('examenApisDaysPlayed'));
             gameBoard.generateBoard();
-            localStorage.setItem('examenApisLastPlayed', date);
+            localStorage.setItem('examenApisLastPlayed', this.date);
             localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.getBoard()}`);
             localStorage.setItem('examenApisPoints', '0');
             localStorage.setItem('examenApisCurrentWords', ' ');
@@ -322,7 +328,7 @@ const localStorageLogic = {
         localStorage.setItem('examenApisPoints', `${playerScoreCard.score}`)
     },
     setNewLocalStorage () {
-        localStorage.setItem('examenApisLastPlayed', date);
+        localStorage.setItem('examenApisLastPlayed', this.date);
         localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.getBoard()}`);
         localStorage.setItem('examenApisPoints', '0');
         localStorage.setItem('examenApisCurrentWords', '');
