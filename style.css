@@ -41,6 +41,7 @@ i:hover {
 
 
 button {
+    color: black;
     padding: 2px 12px;
     background-color: #ffef9f;
     border: 2px solid #f0c800;
@@ -382,12 +383,15 @@ input:hover {
         font-size: 2.2rem;
     }
     input, .input-container > button {
-        margin-left: 6vw;
+        margin-left: -1vw;
+    }
+    
+    .icons{
+        margin-left: 2vw;
     }
 
-    .icons{
-        margin-left: 13vw;
-    }
+   
+
     .rules, .high-scores, .contact {
         display: absolute;
         top: 85vh;
@@ -397,9 +401,10 @@ input:hover {
     button.rules-button, button.scores-button, button.contact-button {
         position:relative;
         left:-23vw;
+        width: 75%;
     }
     
     .mobile-visible {
-        margin-left: 8vw;
+        margin-left: 15vw;
     }
 }

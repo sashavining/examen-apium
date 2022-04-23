@@ -1,210 +1,199 @@
 /* requested features:
 - keyboard inputs
-- unsuccessful guesses
-- I thought the icon to the left of the trophy was to clear what I had entered in the "Type your guess here" field.
-- It occurred to me though that it'd be nice to be able to clear the info in the "Type your guess here" field.
-- Also, consider crediting yourself on the page and linking to your website or wherever you'd like to direct people.
-- alphabetize inputs (David)
+- delete button for mobile
+- total possible points (wait until node.js possible)
 */
-const gameBoard = new Board;
 
-const playerScoreCard = {
-    words: [],
-    score: 0,
+class ScoreCard {
+    constructor () {
+        this.words = [];
+        this.score = 0;
+    }
+    addWord (word) {
+        this.words.push(word)
+    }
+    addPoints (points) {
+        score += points;
+    }
 }
-const gameDisplay = {
-    hexagonDivNumber: ["one", "two", "three", "four", "five", "six", "seven"],
 
-    populateBoard () {
+const playerScoreCard = new ScoreCard;
+
+const gameDisplay = (() => {
+    const keys = document.querySelectorAll('.hexagon');
+    const hexagonButtons = document.querySelectorAll(".letter-button")
+    const refreshButton = document.querySelector("#refresh-button");
+    const rulesOpenButton = document.querySelector(".fa-circle-info");
+    const rulesCloseButton = document.querySelector(".rules-button");
+    const highScoreOpenButton = document.querySelector("#high-scores-button");
+    const highScoreCloseButton = document.querySelector(".scores-button");
+    const contactCloseButton = document.querySelector(".contact-button");
+    const contactOpenButton = document.querySelector("#contact-button");
+    const alphabetizeButtonMobile = document.querySelector("#alphabetize-button-mobile");
+    const alphabetizeButtonDesktop= document.querySelector("#alphabetize-button-desktop");
+
+    const successfulGuesses = document.querySelector('.successful-guess-container');
+    const playerScoreDisplays = document.querySelectorAll('.score-number');
+    const rulesContainer = document.querySelector(".rules");
+    const wordInput = document.querySelector('input');
+    const deleteButton = document.querySelector("#delete-button");
+    const highScoresContainer = document.querySelector(".high-scores");
+    const highestScore = document.querySelector(".highest-score");
+    const longestWord = document.querySelector(".longest-word");
+    const gamesPlayed = document.querySelector(".games-played");
+    const contactContainer = document.querySelector(".contact");
+
+    const populateBoard = () => {
         for (i = 0; i < 7; i ++) {
-            const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
-            container.textContent = gameBoard.board[i]
+            hexagonButtons[i].textContent = gameBoard.getBoard()[i]
         }
-    },
-    clearDisplay () {
+    };
+    const clearDisplay = () => {
         for (i = 0; i < 7; i ++) {
-            const container = document.querySelector(`.${this.hexagonDivNumber[i]}`).firstChild
-            container.innerText = "";
+            hexagonButtons[i].innerText = "";
         }
-    },
-    shuffleDisplay () {
-        this.clearDisplay();
-        const container = document.querySelector(`.${this.hexagonDivNumber[0]}`).firstChild
-        container.textContent = gameBoard.board[0]
+    };
+    const deleteLetter = () => {
+        console.log("deleting last letter!")
+        console.log(wordInput.value);
+        wordInput.value = wordInput.value.substring(0, wordInput.value.length - 1)
+    };
+
+    const shuffleDisplay = () => {
+        clearDisplay();
+        hexagonButtons[0].textContent = gameBoard.getBoard()[0]
         for (i = 1; i < 7; i++) {
             let randomNum = Math.ceil(Math.random() * 6);
-            while (document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild.innerText !== "") {
+            while (hexagonButtons[randomNum].innerText !== "") {
                 randomNum = Math.ceil(Math.random()* 6);
             }
-            const container = document.querySelector(`.${this.hexagonDivNumber[randomNum]}`).firstChild
-            container.innerText = gameBoard.board[i]
+            hexagonButtons[randomNum].innerText = gameBoard.getBoard()[i]
         }
-    },
-    updateScore () {
-        const successfulGuesses = document.querySelector('.successful-guess-container');
-        const playerScoreDisplays = document.querySelectorAll('.score-number');
+    };
+    const updateScore = () => {
         successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  playerScoreCard.words.slice(1).join(`, `) : playerScoreCard.words.join(`, `);  // prevents a leading ,
         playerScoreDisplays.forEach(display => {
             display.textContent = playerScoreCard.score; 
         })
-    },
-    alphabetizeSuccessfulGuesses () {
-        const successfulGuesses = document.querySelector('.successful-guess-container');
+    };
+    const alphabetizeSuccessfulGuesses = () => {
         successfulGuesses.innerText = (playerScoreCard.words[0] === "") ?  [...playerScoreCard.words].slice(1).sort().join(`, `) : [...playerScoreCard.words].sort().join(`, `);
-    },
-    clearGuess () {
-        document.querySelector('input').value = ""; 
-    },
-    showRules () {
-        this.hideHighScores();
-        this.hideContact();
-        const rulesContainer = document.querySelector(".rules");
+    };
+
+    const clearGuess = () => {
+        wordInput.value = ""; 
+    };
+
+    const showRules = () => {
+        hideHighScores();
+        hideContact();
         rulesContainer.removeAttribute('style', 'display:block;')
-    },   
-    hideRules () {
-        const rulesContainer = document.querySelector(".rules");
+    };
+
+    const hideRules = () => {
         rulesContainer.setAttribute('style', 'display:none;')
-    },
-    inputLetterFromButton (e) {
-        const wordInput = document.querySelector('input');
-        console.log(wordInput);
-        console.log(`adding letter ${e.target.textContent} to ${wordInput.textContent}`)
+    };
+    const inputLetterFromButton = (e) => {
         wordInput.value += e.target.textContent;
-    },
-    updateHighScores () {
-        const highestScore = document.querySelector(".highest-score");
-        const longestWord = document.querySelector(".longest-word");
-        const gamesPlayed = document.querySelector(".games-played");
+    };
+
+    const getGuess = () => {
+        const inputtedWord = wordInput.value.toLowerCase();
+        clearGuess();
+        return inputtedWord;
+    };
+
+    const updateHighScores = () => {
         highestScore.textContent = localStorage.getItem('examenApisHighScore');
         longestWord.textContent = localStorage.getItem('examenApisLongestWord');
         gamesPlayed.textContent = localStorage.getItem('examenApisDaysPlayed');
-    },
-    showHighScores () {
-        this.updateHighScores();
-        this.hideRules();
-        this.hideContact();
-        const highScoresContainer = document.querySelector(".high-scores");
+    };
+
+    const showHighScores = () => {
+        updateHighScores();
+        hideRules();
+        hideContact();
         highScoresContainer.removeAttribute('style', 'display:block;')
-    },
-    hideHighScores () {
-        const highScoresContainer = document.querySelector(".high-scores");
+    };
+
+    const hideHighScores = () => {
         highScoresContainer.setAttribute('style', 'display:none;')
-    },
-    showContact () {
-        this.hideRules();
-        this.hideHighScores();
-        const contactContainer = document.querySelector(".contact");
+    };
+
+    const showContact = () => {
+        hideRules();
+        hideHighScores();
         contactContainer.removeAttribute('style', 'display:block;')
-    },
-    hideContact () {
-        const contactContainer = document.querySelector(".contact");
+    };
+
+    const hideContact = () => {
         contactContainer.setAttribute('style', 'display:none;')
     }
-}
+    
+    keys.forEach(key => key.addEventListener('click', inputLetterFromButton));
+    refreshButton.addEventListener("click", shuffleDisplay);
+    deleteButton.addEventListener("click", deleteLetter);
+    rulesOpenButton.addEventListener('click', showRules);
+    rulesCloseButton.addEventListener('click', hideRules);
+    highScoreOpenButton.addEventListener('click', showHighScores);
+    highScoreCloseButton.addEventListener('click', hideHighScores);
+    contactOpenButton.addEventListener('click', showContact);
+    contactCloseButton.addEventListener('click', hideContact);
+    alphabetizeButtonMobile.addEventListener('click', alphabetizeSuccessfulGuesses);
+    alphabetizeButtonDesktop.addEventListener('click', alphabetizeSuccessfulGuesses);
 
+    return {getGuess, updateScore, updateHighScores, populateBoard}
+    
+})();
 
-function Board () {
-    return {
-        board: [],
-        generateBoard () {
-            this.resetBoard();
-            const letters = "aaaaaaaaabccccdddeeeeeeeeeeefghiiiiiiiiiiilllmmmmmnnnnnnooooopppqqrrrrrrrssssssssttttttttuuuuuuuuuv"
-            // letter frequencies from https://www.sttmedia.com/characterfrequency-latin. Any letter that appears < 1% has been omitted
-            for (i = 0; i < 7; i++) {
-                let generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
-                while (this.board.includes(generatedLetter)) {
-                    generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
-                } 
-                if (generatedLetter === "q" && !this.board.join("").includes("u")) {
-                    if (this.board.length < 6) {
-                        this.board.push(generatedLetter);
-                        this.board.push("u");
-                        i++
-                        continue;
-                    } else {
-                        this.board.push(generatedLetter);
-                        this.board[2] = "u";
-                        continue;
-                    }
-                } 
-                this.board.push(generatedLetter);
-            }
-        },
-        resetBoard () {
-            for (i = 0; i < 7; i++) {
-                this.board.pop();
-            }
+const gameBoard = (() => {
+    const letters = "aaaaaaaaabccccdddeeeeeeeeeeefghiiiiiiiiiiilllmmmmmnnnnnnooooopppqqrrrrrrrssssssssttttttttuuuuuuuuuv"
+    // letter frequencies from https://www.sttmedia.com/characterfrequency-latin. Any letter that appears < 1% has been omitted
+    const board = [];
+    const resetBoard = () => {
+        for (i = 0; i < 7; i++) {
+            board.pop();
         }
     }
-}
-
-
-
-
-
-const keys = document.querySelectorAll('.hexagon');
-keys.forEach(key => key.addEventListener('click', gameDisplay.inputLetterFromButton));
-
-const refreshButton = document.querySelector("#refresh-button");
-refreshButton.addEventListener("click", gameDisplay.shuffleDisplay.bind(gameDisplay));
-const rulesOpenButton = document.querySelector(".fa-circle-info");
-rulesOpenButton.addEventListener('click', gameDisplay.showRules.bind(gameDisplay));
-const rulesCloseButton = document.querySelector(".rules-button");
-rulesCloseButton.addEventListener('click', gameDisplay.hideRules.bind(gameDisplay));
-const highScoreOpenButton = document.querySelector("#high-scores-button");
-highScoreOpenButton.addEventListener('click', gameDisplay.showHighScores.bind(gameDisplay));
-const highScoreCloseButton = document.querySelector(".scores-button");
-highScoreCloseButton.addEventListener('click', gameDisplay.hideHighScores.bind(gameDisplay));
-const contactCloseButton = document.querySelector(".contact-button");
-const contactOpenButton = document.querySelector("#contact-button");
-contactOpenButton.addEventListener('click', gameDisplay.showContact.bind(gameDisplay));
-contactCloseButton.addEventListener('click', gameDisplay.hideContact.bind(gameDisplay));
-const alphabetizeButtonMobile = document.querySelector("#alphabetize-button-mobile");
-const alphabetizeButtonDesktop= document.querySelector("#alphabetize-button-desktop");
-alphabetizeButtonMobile.addEventListener('click', gameDisplay.alphabetizeSuccessfulGuesses);
-alphabetizeButtonDesktop.addEventListener('click', gameDisplay.alphabetizeSuccessfulGuesses);
-
-
-
-
-let isCurrentPlayValid;
-
-const gameLogic = { 
-    playWord () {
-        const inputtedWord = document.querySelector('input').value.toLowerCase();
-        let errorTextContainer = document.querySelector('.error-text');
-        gameDisplay.clearGuess();
-        if (!this.checkIfWordLongEnough(inputtedWord)) {
-            errorTextContainer.innerText = "Words should be at least four letters long!";
-            return;
-        } else if (!this.checkIfUsesOneRequiredLetter(inputtedWord)) {
-            errorTextContainer.innerText = "Use the center yellow letter!";
-            return;
-        } else if (!this.checkIfAllLettersAllowed(inputtedWord)) {
-            errorTextContainer.innerText = "Use only the letters on the gameboard!";
-            return;
-        } else if (this.checkIfWordAleadyPlayed(inputtedWord)) {
-            errorTextContainer.innerText = "You already played that word!";
-            return;
-        } else {
-            this.checkIfLatinWord(inputtedWord).then(() => {
-                console.log(isCurrentPlayValid);
-                if (!isCurrentPlayValid) {
-                    errorTextContainer.innerText = "That is not a valid Latin word!";
-                    return;
+    const generateBoard = () => {
+        resetBoard(); 
+        let generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
+        for (i = 0; i < 7; i++) {
+            while (board.includes(generatedLetter)) {
+                generatedLetter = letters.charAt(Math.floor(Math.random() * letters.length));
+            } 
+            if (generatedLetter === "q" && !board.join("").includes("u")) {
+                if (board.length < 6) {
+                    board.push(generatedLetter);
+                    board.push("u");
+                    i++
+                    continue;
                 } else {
-                    errorTextContainer.innerText = "";
-                    playerScoreCard.words.push(inputtedWord);
-                    playerScoreCard.score += this.scoreWord(inputtedWord);    
-                    gameDisplay.updateScore();
-                    gameDisplay.updateHighScores();
-                    localStorageLogic.updateHighScores();
-                    localStorageLogic.updatePlayerScoreCard();
-                }
-            })
-        }  
-    },
-    checkIfLatinWord: async (str) => {
+                    board.push(generatedLetter);
+                    board[2] = "u";
+                    continue;
+                    }
+                } 
+            board.push(generatedLetter);
+        }
+    };
+    const updateFromLocalStorage = () => {
+        resetBoard();
+        board.push(...localStorage.getItem('examenApisPuzzleBoard').split(","))
+    }
+    const getBoard = () => {
+        return board;
+    }
+    return {generateBoard, updateFromLocalStorage, getBoard}
+})();
+
+
+const gameLogic = (() => { 
+    let isCurrentPlayValid;
+    const inputtedWord = gameDisplay.getGuess();
+    const errorTextContainer = document.querySelector('.error-text');
+
+    const checkIfLatinWord = async function (str) {
         try {
             const response = await fetch(`https://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat&word=${str}`, { mode: 'cors' });
             const dataOut = await response.json();
@@ -213,78 +202,103 @@ const gameLogic = {
         catch (err) {
             console.log(`error ${err}`);
         }
-    },
+    };
 
-    checkIfWordAleadyPlayed (word) {
-        return playerScoreCard.words.includes(word)
-    },
+    const checkIfWordAleadyPlayed = () => {
+        return playerScoreCard.words.includes(inputtedWord)
+    };
 
-    checkIfWordLongEnough (word) {
-        return word.length >= 4
-    },
+    const checkIfWordLongEnough = () => {
+        return inputtedWord.length >= 4
+    };
 
-    checkIfUsesOneRequiredLetter (word) {
-        return word.toLowerCase().includes(gameBoard.board[0])
-    },
-    checkIfAllLettersAllowed (word) {
-    const wordArray = word.split("");
-    for (i = 0; i < wordArray.length; i++) {
-        if (!gameBoard.board.includes(wordArray[i])) {
-            return false; 
+    const checkIfUsesOneRequiredLetter = () => {
+        return inputtedWord.toLowerCase().includes(gameBoard.getBoard()[0])
+    };
+
+    const checkIfAllLettersAllowed = () => {
+        const wordArray = inputtedWord.split("");
+        for (i = 0; i < wordArray.length; i++) {
+            if (!gameBoard.getBoard().includes(wordArray[i])) {
+                return false; 
         } 
-    }
-    return true;
-    },
+      } return true;
+    };
+    
+    const checkIfPangram = (str, arr) => {
+        if (str.length !== arr.length) {
+            return false
+        }
+        let strNormalized = str.toLowerCase().split("").sort().join("");
+        let arrNormalized  = [...arr].sort().join("");
+        return strNormalized === arrNormalized
+    };
 
-    checkIfPangram (str, arr) {
-    if (str.length !== arr.length) {
-        return false
+    const scoreWord = (word) => { 
+        if (word.length === 4) {
+            return 1
+        } else if (checkIfPangram(word, gameboard.getBoard())) {
+            return 14
+        } else if (word.length > 4) {
+            return word.length
+        }
     }
-    let strNormalized = str.toLowerCase().split("").sort().join("");
-    let arrNormalized  = [...arr].sort().join("");
 
-    return strNormalized === arrNormalized
-    },
+    const playWord = () => {
+        if (!checkIfWordLongEnough(inputtedWord)) {
+            errorTextContainer.innerText = "Words should be at least four letters long!";
+            return;
+        } else if (!checkIfUsesOneRequiredLetter(inputtedWord)) {
+            errorTextContainer.innerText = "Use the center yellow letter!";
+            return;
+        } else if (!checkIfAllLettersAllowed(inputtedWord)) {
+            errorTextContainer.innerText = "Use only the letters on the gameboard!";
+            return;
+        } else if (checkIfWordAleadyPlayed(inputtedWord)) {
+            errorTextContainer.innerText = "You already played that word!";
+            return;
+        } else {
+            checkIfLatinWord(inputtedWord).then(() => {
+                if (!isCurrentPlayValid) {
+                    errorTextContainer.innerText = "That is not a valid Latin word!";
+                    return;
+                } else {
+                    errorTextContainer.innerText = "";
+                    playerScoreCard.addWord(inputtedWord);
+                    playerScoreCard.addPoints(scoreWord(inputtedWord));  
+                    gameDisplay.updateScore();
+                    gameDisplay.updateHighScores();
+                    localStorageLogic.updateHighScores();
+                    localStorageLogic.updatePlayerScoreCard();
+                }
+            })
+        }  
+    };
 
-    scoreWord (word) { 
-    if (word.length === 4) {
-        return 1
-    } else if (this.checkIfPangram(word, gameBoard.board)) {
-        return 14
-    } else if (word.length > 4) {
-        return word.length
-    }
-    }
-}
+    document.querySelector('button').addEventListener('click', playWord);
 
-document.querySelector('button').addEventListener('click', gameLogic.playWord.bind(gameLogic));
+})();
 
 const localStorageLogic = {
     populateOnPageLoad () {
         const date = new Date(Date.now()).toLocaleString().split(',')[0]
         if(localStorage.getItem("examenApisLastPlayed") === null) {
             gameBoard.generateBoard();
-            localStorage.setItem('examenApisLastPlayed', date);
-            localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
-            localStorage.setItem('examenApisPoints', '0');
-            localStorage.setItem('examenApisCurrentWords', '');
-            localStorage.setItem('examenApisHighScore', '0');
-            localStorage.setItem('examenApisLongestWord', ' ');
-            localStorage.setItem('examenApisDaysPlayed', '1');
+            this.setNewLocalStorage();
             gameDisplay.updateHighScores();
             gameDisplay.populateBoard();
         } else if (localStorage.getItem("examenApisLastPlayed") !== date) {
+            let currentNumOfDaysPlayed = Number(localStorage.getItem('examenApisDaysPlayed'));
             gameBoard.generateBoard();
             localStorage.setItem('examenApisLastPlayed', date);
-            localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.board}`);
+            localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.getBoard()}`);
             localStorage.setItem('examenApisPoints', '0');
             localStorage.setItem('examenApisCurrentWords', ' ');
-            let currentNumOfDaysPlayed = Number(localStorage.getItem('examenApisDaysPlayed'));
             localStorage.setItem('examenApisDaysPlayed', `${currentNumOfDaysPlayed += 1}`);
             gameDisplay.updateHighScores();
             gameDisplay.populateBoard();
         } else {
-            gameBoard.board = localStorage.getItem('examenApisPuzzleBoard').split(",");
+            gameBoard.updateFromLocalStorage();
             playerScoreCard.score = Number(localStorage.getItem('examenApisPoints'));
             playerScoreCard.words = localStorage.getItem('examenApisCurrentWords').split(`, `) 
             localStorageLogic.updateHighScores();
@@ -306,6 +320,15 @@ const localStorageLogic = {
     updatePlayerScoreCard () {
         localStorage.setItem('examenApisCurrentWords', `${playerScoreCard.words.join(`, `)}`)
         localStorage.setItem('examenApisPoints', `${playerScoreCard.score}`)
+    },
+    setNewLocalStorage () {
+        localStorage.setItem('examenApisLastPlayed', date);
+        localStorage.setItem('examenApisPuzzleBoard', `${gameBoard.getBoard()}`);
+        localStorage.setItem('examenApisPoints', '0');
+        localStorage.setItem('examenApisCurrentWords', '');
+        localStorage.setItem('examenApisHighScore', '0');
+        localStorage.setItem('examenApisLongestWord', ' ');
+        localStorage.setItem('examenApisDaysPlayed', '1');
     }    
 }
 
