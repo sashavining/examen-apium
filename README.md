@@ -12,10 +12,10 @@ Examen Apium was born in April 2022! I launched it to my personal Facebook in a 
 
 Everything you will need to play is on the site itself. Use the icons above (backspace, clear, shuffle letters, high scores, rules, contact) to navigate the game.
 
-![Examen Apium being played]https://user-images.githubusercontent.com/96848086/164978604-60b978f5-2247-4e4c-bfd2-36d7d03f5d0e.gif)
+![Examen Apium Being Played](https://user-images.githubusercontent.com/96848086/164978948-fcbdb596-0884-48b1-84ad-44b88717b895.gif)
 
 # Tech Used
-HTML, CSS, Vanilla JS 
+HTML, CSS, Vanilla JS, Perseids web API
 
 # What did I learn?
 This was my first major project using APIs, so I learned a lot about promises and async/await. I also refactored the code a couple of times, trying to make it follow the principles of OOP more and more each time. I read quite a bit about OOP in my research for this project. This was also the first project that I sought developer feedback for (see pull requests), and I wish I had asked for feedback earlier! It is so helpful to get another pair of eyes on your work.
