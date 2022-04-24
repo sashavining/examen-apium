@@ -6,12 +6,12 @@
 
 class ScoreCard {
   constructor() {
-    this.words = [];
+    this.words = [""];
     this.score = 0;
   }
   addWord(word) {
     if (this.words[0] === "") {
-      this.words[0] = words;
+      this.words[0] = word;
     } else {
       this.words.push(word);
     }
@@ -55,12 +55,12 @@ const gameDisplay = (() => {
   const contactContainer = document.querySelector(".contact");
 
   const populateBoard = () => {
-    for (i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
       hexagonButtons[i].textContent = gameBoard.getBoard()[i];
     }
   };
   const clearDisplay = () => {
-    for (i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
       hexagonButtons[i].innerText = "";
     }
   };
@@ -73,7 +73,7 @@ const gameDisplay = (() => {
   const shuffleDisplay = () => {
     clearDisplay();
     hexagonButtons[0].textContent = gameBoard.getBoard()[0];
-    for (i = 1; i < 7; i++) {
+    for (let i = 1; i < 7; i++) {
       let randomNum = Math.ceil(Math.random() * 6);
       while (hexagonButtons[randomNum].innerText !== "") {
         randomNum = Math.ceil(Math.random() * 6);

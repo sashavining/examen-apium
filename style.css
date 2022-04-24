@@ -91,14 +91,18 @@ body{
     height: 63px;
     box-sizing: border-box;
     border: 0.4vh solid transparent;
-    padding-top: 5px;
-    padding-right:20px;
 }
 
-.hexagon div {
+.letter-button {
+    height: 100%;
     font-size: 1.8rem;
-    width:1px;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 3px;
+    text-align: center;
+}
+
+.hexagon:hover {
+    cursor: pointer;
 }
 
 .one {
@@ -175,6 +179,10 @@ that they form a hexagon */
     width: fit-content;
     margin: 0 auto;
     display: flex;
+}
+
+.icons:hover {
+ cursor: pointer;
 }
 
 #alphabetize-button-desktop{
