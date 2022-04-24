@@ -12,7 +12,7 @@ Examen Apium was born in April 2022! I launched it to my personal Facebook in a 
 
 Everything you will need to play is on the site itself. Use the icons above (backspace, clear, shuffle letters, high scores, rules, contact) to navigate the game.
 
-![Examen Apium Being Played](https://user-images.githubusercontent.com/96848086/164978948-fcbdb596-0884-48b1-84ad-44b88717b895.gif)
+![Examen Apium Being Played](https://user-images.githubusercontent.com/96848086/164979034-8ab4cd08-6cc5-45a8-9d12-5f6c17cdc687.gif)
 
 # Tech Used
 HTML, CSS, Vanilla JS, Perseids web API
