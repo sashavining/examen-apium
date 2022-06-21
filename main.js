@@ -1,6 +1,5 @@
 /* requested features:
 - keyboard inputs
-- delete button for mobile
 - total possible points (wait until node.js possible)
 */
 
