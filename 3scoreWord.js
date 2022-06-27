@@ -61,13 +61,9 @@ const checkIfPangram = (str, gameBoard) => {
                 } 
                 return data;
               })
-              console.log(returnedData)
               let commalessData = removeCommas(returnedData)
-              console.log(commalessData)
               let shortWordlessData = removeShortWords(commalessData)
-              console.log(shortWordlessData)
               let scoredWords = scoreWords(shortWordlessData, gameBoard);
-              console.log(scoredWords)
               fs.writeFile(fromFile, scoredWords, err => {
                 if (err) {
                     console.log(err)
