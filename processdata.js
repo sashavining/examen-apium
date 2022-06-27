@@ -7,7 +7,7 @@ function cleanData (data) {
       .replace(/([A-Z])\w+/g,"")
       .replace(/([A-Z])/g,"")
       .replace(/\b\w{1,3}\b/g, "")
-      .replace(/^\s+|\s+$|\s+(?=\s)/g, "")
+      .replace(/\s\s+/g, ' ');
 }
 
 function getUniqueData (data) {
