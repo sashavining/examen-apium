@@ -21,7 +21,7 @@ MongoClient.connect(process.env.MONGO_CONNECTION_STRING, { useUnifiedTopology: t
   const db = client.db('examen-apium');
 
   app.get('/', (req, res) => {
-    res.sendFile('index.html')
+    res.sendFile('/index.html')
     })
 
    app.get('/gameboards/newest', async (req, res) => {
