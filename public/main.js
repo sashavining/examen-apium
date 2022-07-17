@@ -1,4 +1,3 @@
-// Deleted gameBoard in the front end code - figure out what needs to be changed based on that
 
 class ScoreCard {
   constructor() {
@@ -19,21 +18,6 @@ class ScoreCard {
 
 const playerScoreCard = new ScoreCard();
 
-// const checkIfLatinWord = async function (str) {
-//   try {
-//     const response = await fetch(
-//       `https://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat&word=${str}`,
-//       { mode: "cors" }
-//     );
-//     const dataOut = await response.json();
-//     isCurrentPlayValid = Object.keys(dataOut.RDF.Annotation)
-//       .join("")
-//       .includes("hasBody");
-//   } catch (err) {
-//     console.log(`error ${err}`);
-//   }
-// };
-
 
 async function getBoard () {
   try {
@@ -53,9 +37,6 @@ async function getBoard () {
 
 getBoard();
 
-
-// fetch the gameboard from the backend 
-// once that is fetched, store it to localstorage.
 
 function GameDisplay (gameBoard) {
   this.keys = document.querySelectorAll(".hexagon")
@@ -209,7 +190,6 @@ function GameDisplay (gameBoard) {
 
 function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
   this.isCurrentPlayValid = false;
-  // this can stay but can only be triggered with a button / user input upon an incorrect guess
   this.checkAPI = async (str) => {
     try {
       const response = await fetch(
@@ -233,7 +213,6 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
       return;
     } else {
       gameDisplay.errorTextContainer.innerText = "Our bad! You were correct and earned a bonus 10 points!";
-      // add the word to the DB
       playerScoreCard.addWord(inputtedWord);
       playerScoreCard.addPoints(this.scoreWord(inputtedWord) + 10);
       gameDisplay.updateScore();
@@ -354,14 +333,6 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
     }
   }
 }
-
-  // const playWord = (gameLogic, gameDisplay) => {
-  //   // replace this block with logic to check the list of guesses (which you get from the backend) includes a given word. If it doesn't,
-  //   // throw a generic error that the word is not allowed and to check the rules. (if the user thinks the board is wrong, they can also opt for
-  //   // an API check)
-  // };
-
-  // refactoring this
 
 function LocalStorageLogic (gameDisplay, gameBoard) {
   this.date = new Date(Date.now()).toLocaleString().split(",")[0];

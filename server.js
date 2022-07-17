@@ -84,6 +84,4 @@ app.listen(process.env.PORT || 3000)
 
 })
 
-// do I really need mongoose for this? maybe just vanilla mongoDB.
-
 
