@@ -209,7 +209,7 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
     console.log('checking word against API!')
     await this.checkAPI(inputtedWord)
     if (!this.isCurrentPlayValid) {
-      gameDisplay.errorTextContainer.innerText = "Still not a valid Latin word! If you still think we got it wrong, please send us an email.";
+      gameDisplay.errorTextContainer.innerText = "Not a valid Latin word! If you still think we got it wrong, please send us an email.";
       return;
     } else {
       gameDisplay.errorTextContainer.innerText = "Our bad! You were correct and earned a bonus 10 points!";

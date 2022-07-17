@@ -3,3 +3,5 @@ node_modules/
 .env
 latin-word-data
 .vscode
+.DS_Store
+/*.env
