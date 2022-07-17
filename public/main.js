@@ -206,7 +206,6 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
   };
 
   this.checkIfLatinWordAPI = async (inputtedWord) => {
-    console.log('checking word against API!')
     await this.checkAPI(inputtedWord)
     if (!this.isCurrentPlayValid) {
       gameDisplay.errorTextContainer.innerHTML = 'Not a Latin word! If we got it wrong, please <a href="mailto:examenapium@gmail.com">email us!</a>';
