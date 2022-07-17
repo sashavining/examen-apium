@@ -64,6 +64,7 @@ button, input{
     font-size: 1rem;
     padding-left: 0rem;
     font-weight: bold;
+    margin-top:-50px;
 }
 
 .logo-one{
@@ -380,6 +381,9 @@ input:hover {
     input, .input-container >button{
         margin-left: 16vw;
     }
+    .error-text {
+        margin-top:0px;
+    }
     .score-label{
         margin-left: 4vw;
     }
@@ -426,6 +430,10 @@ input:hover {
         position:relative;
         left:-23vw;
         width: 75%;
+    }
+
+    .error-text {
+        margin-top:7vh;
     }
     
     .mobile-visible {
