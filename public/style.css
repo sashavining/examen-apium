@@ -416,6 +416,9 @@ input:hover {
         text-align: center;
     }
 
+    .score-label{
+        margin-left: 2vw;
+    }
 
     .rules, .high-scores, .contact {
         display: absolute;
