@@ -252,6 +252,16 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
           word: inputtedWord,
           score: this.scoreWord(inputtedWord)
         })
+      }),
+      await fetch(`/dictionary`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application.json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          word: inputtedWord,
+        })
       })
     }
   };
