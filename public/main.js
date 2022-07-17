@@ -209,7 +209,7 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
     console.log('checking word against API!')
     await this.checkAPI(inputtedWord)
     if (!this.isCurrentPlayValid) {
-      gameDisplay.errorTextContainer.innerText = "Not a valid Latin word! If you still think we got it wrong, please send us an email.";
+      gameDisplay.errorTextContainer.innerHTML = 'Not a Latin word! If we got it wrong, please <a href="mailto:examenapium@gmail.com">email us!</a>';
       return;
     } else {
       gameDisplay.errorTextContainer.innerText = "Our bad! You were correct and earned a bonus 10 points!";
@@ -299,7 +299,7 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
       return;
     } else {
       if (!this.checkIfLatinWordDB(inputtedWord)) {
-          gameDisplay.errorTextContainer.innerHTML = `That is not a valid Latin word! Think we got it wrong? <button id="double-check"> Double check. </button>`;
+          gameDisplay.errorTextContainer.innerHTML = `Not a valid Latin word! Are we wrong? <button id="double-check"> Double check. </button>`;
           document.querySelector('#double-check').addEventListener('click', this.checkIfLatinWordAPI.bind(null, inputtedWord))
           return;
       } else {
