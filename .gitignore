@@ -1,2 +1,3 @@
 node_modules
-latin_text_files
+.env
+latin-word-data
