@@ -416,10 +416,6 @@ input:hover {
         text-align: center;
     }
 
-    .score-label{
-        margin-left: 1vw;
-    }
-
     .rules, .high-scores, .contact {
         display: absolute;
         top: 85vh;
@@ -434,6 +430,6 @@ input:hover {
     
     .mobile-visible {
         margin-top: -3vh;
-        margin-left: 25vw;
+        margin-left: 20vw;
     }
 }
