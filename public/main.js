@@ -240,6 +240,8 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
         body: JSON.stringify({
           word: inputtedWord,
         })
+      }).then(data => {
+        window.location.reload()
       })
     }
   };
