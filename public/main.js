@@ -218,7 +218,6 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
       gameDisplay.updateHighScores();
       localStorageLogic.updateHighScores();
       localStorageLogic.updatePlayerScoreCard();
-      console.log(gameBoard._id)
       try {
         await fetch(`/gameboards/${gameBoard._id}`, {
           method: 'PUT',
@@ -242,9 +241,6 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
             word: inputtedWord,
           })
         })
-        console.log('is the code getting here?')
-        window.location.reload()
-
       } catch (err) {
         console.log(err)
       }

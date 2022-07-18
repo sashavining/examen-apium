@@ -393,6 +393,9 @@ input:hover {
     #alphabetize-button-mobile{
         display: inline-block;
     }
+    .mobile-visible{
+        margin-left:23vw;
+    }
 }
 
 @media screen and (max-width: 650px) {

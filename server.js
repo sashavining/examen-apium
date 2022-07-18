@@ -52,9 +52,11 @@ MongoClient.connect(process.env.MONGO_CONNECTION_STRING, { useUnifiedTopology: t
                     }
                     )
             }
+            res.sendStatus(200)
         }
         catch (error) {
             console.log(error);
+            res.sendStatus(404)
         }    
     })
 
@@ -74,13 +76,14 @@ MongoClient.connect(process.env.MONGO_CONNECTION_STRING, { useUnifiedTopology: t
                     }
                     )
             }
+            res.sendStatus(200)
         }
         catch (error) {
             console.log(error);
+            res.sendStatus(404)
         }    
     })
-    
-app.listen(process.env.PORT || 3000)
+    app.listen(process.env.PORT || 3000)
 
 })
 
