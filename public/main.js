@@ -219,30 +219,35 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
       localStorageLogic.updateHighScores();
       localStorageLogic.updatePlayerScoreCard();
       console.log(gameBoard._id)
-      await fetch(`/gameboards/${gameBoard._id}`, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application.json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          boardId: gameBoard._id,
-          word: inputtedWord,
-          score: this.scoreWord(inputtedWord)
+      try {
+        await fetch(`/gameboards/${gameBoard._id}`, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            boardId: gameBoard._id,
+            word: inputtedWord,
+            score: this.scoreWord(inputtedWord)
+          })
+        }),
+        await fetch(`/dictionary`, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            word: inputtedWord,
+          })
         })
-      }),
-      await fetch(`/dictionary`, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application.json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          word: inputtedWord,
-        })
-      }).then(data => {
+        console.log('is the code getting here?')
         window.location.reload()
-      })
+
+      } catch (err) {
+        console.log(err)
+      }
     }
   };
 
