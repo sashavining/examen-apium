@@ -410,12 +410,10 @@ input:hover {
     }
     input, .input-container > button {
         margin-left: -1vw;
+        width:95%;
     }
     .input-container{
         margin-top: -13vh;
-    }
-    .input-container > button {
-        width:95%;
     }
 
     .icons{
