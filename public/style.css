@@ -414,6 +414,9 @@ input:hover {
     .input-container{
         margin-top: -13vh;
     }
+    .input-container > button {
+        width:80%;
+    }
 
     .icons{
         margin-left: 5vw;
