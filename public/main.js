@@ -18,7 +18,6 @@ class ScoreCard {
 
 const playerScoreCard = new ScoreCard();
 
-
 async function getBoard () {
   try {
     const response = await fetch('/gameboards/newest', { method: 'GET' });
@@ -340,7 +339,6 @@ function LocalStorageLogic (gameDisplay, gameBoard) {
   this.date = new Date(Date.now()).toLocaleString().split(",")[0];
   this.populate = () => {
     if (localStorage.getItem("examenApisLastPlayed") == null) {
-      console.log('you have not played before!')
       this.setNewLocalStorage();
       gameDisplay.updateHighScores();
       gameDisplay.populateBoard();

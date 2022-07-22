@@ -303,22 +303,7 @@ input:hover {
 }
 
 @media screen and (max-width: 1050px) {
-   /* h1{
-        margin: 1vh 0vw 0vh 2vw;
-    }
-    .icons{
-        margin-left: 8vw;
-    }
-    .hexagon-container{
-        margin-top: -10px;
-    }
-    .input-container{
-        margin-top: -70px;
-    }
-      .hexagon {
-        margin-left: 28vw;
-    }
-*/
+
     button{
         display:block;
         width:340px;
