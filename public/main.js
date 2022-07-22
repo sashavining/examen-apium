@@ -231,7 +231,7 @@ function GameLogic (gameBoard, gameDisplay, localStorageLogic) {
           })
         }),
         await fetch(`/dictionary`, {
-          method: 'PUT',
+          method: 'POST',
           headers: {
             Accept: 'application.json',
             'Content-Type': 'application/json'

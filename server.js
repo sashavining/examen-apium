@@ -60,21 +60,13 @@ MongoClient.connect(process.env.MONGO_CONNECTION_STRING, { useUnifiedTopology: t
         }    
     })
 
-    app.put('/dictionary', async (req, res) => {
+    app.post('/dictionary', async (req, res) => {
         try {
             const response = await axios.get(`https://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat&word=${req.body.word}`)
             if ((Object.keys(response.data.RDF.Annotation)).includes("hasBody")) {
-                db.collection('latin-word-list').findOneAndUpdate(
-                    { },
-                    {
-                        $push: { 
-                            "words" : req.body.word,
-                        }
-                    }, (err, doc) => {
-                        if (err) return res.send(500, {error: err});
-                        return doc;                      
-                    }
-                    )
+                db.collection('latin-word-list').insertOne(
+                    { word: req.body.word }
+                )
             }
             res.sendStatus(200)
         }
